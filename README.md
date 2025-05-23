@@ -1,17 +1,18 @@
-Proyecto JavaScript - EnviosUY
-Descripción
+# 🚀 Proyecto JavaScript - EnviosUY
+
+## Descripción
 Este proyecto es una aplicación desarrollada en JavaScript como parte del curso de Coderhouse. El objetivo principal es simular la gesrion de una empresa de envios.
 
-Funcionalidades
-Registro de pedidos de distintos negocios
+## Funcionalidades
+- Registro de pedidos de distintos negocios
 
-Asignacion de pedidos a conductores
+- Asignacion de pedidos a conductores
 
-Visualizacion del estado de los pedidos
+- Visualizacion del estado de los pedidos
 
-Visualizacion de los datos relevantes de los clientes
+- Visualizacion de los datos relevantes de los clientes
 
-Autor
+### Autor
 Leonardo Leao
 
 Email: leonardo.leao90@gmail.com

@@ -1,0 +1,137 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
+/*ESTILOS GENERALES*/
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Nunito", sans-serif;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  background-color: #F5F5F5;
+}
+body nav {
+  z-index: 200;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.45rem 2rem 0.45rem 1.27rem;
+  background-color: #00A7E6;
+  color: #ffffff;
+}
+body nav .logo {
+  font-size: 2rem;
+  font-weight: bold;
+  padding: 5px;
+  color: #FFD100;
+}
+body nav .menu {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 1.2rem;
+}
+body nav .menu a {
+  color: #ffffff;
+  text-decoration: none;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+body nav .menu a:hover {
+  background-color: #0288D1;
+  cursor: pointer;
+}
+body .dashboard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+  gap: 1rem;
+  background-color: #01579B;
+}
+body .dashboard .card {
+  color: #ffffff;
+  padding: 1rem 2rem;
+  text-align: center;
+  min-width: 150px;
+  font-weight: bold;
+}
+body main {
+  background-color: #F5F5F5;
+}
+body main .acciones {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  gap: 10rem;
+}
+body main .acciones .btn {
+  background-color: transparent;
+  border-radius: 8px;
+  font-size: 1rem;
+  padding: 0.6rem 1.2rem;
+  border: 2px solid #01579B;
+  color: #01579B;
+  font-weight: 600;
+  transition: background-color 0.4s ease;
+}
+body main .acciones .btn:hover {
+  background-color: #01579B;
+  color: #ffffff;
+  cursor: pointer;
+}
+body main table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+body main table th, body main table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #E0E0E0;
+  text-align: center;
+}
+body main table th {
+  background-color: #BBDEFB;
+}
+body main table tbody tr:hover {
+  background-color: #F0F4F8;
+}
+body main .lista-envios {
+  padding: 1rem;
+}
+body .listado, body .ingreso {
+  padding: 2rem;
+}
+body .listado .selector, body .ingreso .selector {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+body .listado .selector .btn-tab, body .ingreso .selector .btn-tab {
+  background-color: transparent;
+  border: 2px solid #01579B;
+  color: #01579B;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+body .listado .selector .btn-tab.activo, body .ingreso .selector .btn-tab.activo {
+  background-color: #01579B;
+  color: white;
+}
+body .listado .contenido-tab.oculto, body .ingreso .contenido-tab.oculto {
+  display: none;
+}
+
+/*# sourceMappingURL=styles.css.map */

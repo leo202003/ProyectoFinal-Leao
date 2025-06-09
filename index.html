@@ -3,23 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
     <title>EnviosUY</title>
 </head>
 <body>
-    <h1>EnviosUY</h1>
-    <p> Empresa encargada de la distribucion de paquetes a todo el Uruguay. La empresa trabaja con distintos negocios en donde cada uno tiene paquetes a enviar.
-        La idea es proporcionar un software a esta empresa para que pueda gestionar sus envios.
-    </p>
-    <h2>Se podra visualizar:</h2>
-    <ul>
-        <li>Los distintos negocios a los cuales la empresa le brinda servicio</li>
-        <li>Los pedidos que tiene en sistema</li>
-        <li>El estado de dichos pedidos (cancelado, pendiente, retirado, entregado)</li>
-        <li>El conductor que lleva dicho pedido en caso de que el mismo este en ruta</li>
-        <li>La direccion del pedido</li>
-        <li>Datos del cliente</li>
-    </ul>
-    <p>Ademas se podra ingresar pedidos a sistema y eliminarlos</p>
-    <script src="main.js"></script>
+    <header>
+        <nav>
+            <div class="logo">EnviosUY</div>
+            <ul class="menu">
+                <li><a href="../index.html">Inicio</a></li>
+                <li><a href="pages/ingreso.html">Ingreso</a></li>
+                <li><a href="pages/listado.html">Listado</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="dashboard">
+            <div class="card">Total envíos:</div>
+            <div class="card">Envíos pendientes:</div>
+            <div class="card">Envíos en tránsito:</div>
+            <div class="card">Envíos en entregados:</div>
+        </section>
+        
+        <section class="acciones">
+            <button class="btn">Ingresar Pedido</button>
+            <button class="btn">Asignar Conductor</button>
+        </section>
+
+        <section class="lista-envios">
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>ID</th>
+                        <th>Negocio</th>
+                        <th>Cliente</th>
+                        <th>Destino</th>
+                        <th id="estado">Estado</th>
+                        <th>Conductor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <label class="checkbox-container">
+                            <input type="checkbox" />
+                            </label>
+                        </td>
+                        <td>001</td>
+                        <td>Comercio A</td>
+                        <td>Leo</td>
+                        <td>Montevideo</td>
+                        <td>En tránsito</td>
+                        <td>Jose Gervasio</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+    
 </body>
 </html>

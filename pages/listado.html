@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles.css">
+    <title>EnviosUY</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">EnviosUY</div>
+            <ul class="menu">
+                <li><a href="../index.html">Inicio</a></li>
+                <li><a href="/pages/ingreso.html">Ingreso</a></li>
+                <li><a href="#">Listado</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="listado">
+            <div class="selector">
+                <button class="btn-tab activo" data-tab="pedidos">Pedidos</button>
+                <button class="btn-tab" data-tab="negocios">Negocios</button>
+                <button class="btn-tab" data-tab="clientes">Clientes</button>
+                <button class="btn-tab" data-tab="conductores">Conductores</button>
+            </div>
+
+            <div class="contenido-tab" id="pedidos">
+                <!-- Tabla de pedidos -->
+            </div>
+
+            <div class="contenido-tab oculto" id="negocios">
+                <!-- Tabla de negocios -->
+            </div>
+
+            <div class="contenido-tab oculto" id="clientes">
+                <!-- Tabla de clientes -->
+            </div>
+
+            <div class="contenido-tab oculto" id="conductores">
+                <!-- Tabla de conductores -->
+            </div>
+        </section>
+    </main>
+
+    <script src="../main.js"></script>
+</body>
+</html>

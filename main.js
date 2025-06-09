@@ -1,5 +1,5 @@
 //DATOS YA INGRESADOS EN EL SISTEMA PREVIAMENTE
-let Clientes = [
+/*let Clientes = [
     {
         id: 1,
         nombre: "Leonardo",
@@ -305,7 +305,21 @@ while (opcion != 11) {
             break;
     }
     opcion = parseInt(prompt("MENU\n 1 - Ingresar Pedido\n 2 - Ingresar Cliente\n 3 - Ingresar Negocio\n 4 - Ingresar Conductor\n 5 - Asignar Pedido\n 6 - Listado de Pedidos\n 7 - Listado de Negocios\n 8 - Listado de Conductores\n 9 - Listado de Clientes\n 10 - Cancelar Pedido\n 11 - Salir"));
-}
+}*/
 
+const tabs = document.querySelectorAll('.btn-tab');
+const contenidos = document.querySelectorAll('.contenido-tab');
 
+tabs.forEach(btn => {
+  btn.addEventListener('click', () => {
+    // Reset
+    tabs.forEach(b => b.classList.remove('activo'));
+    contenidos.forEach(c => c.classList.add('oculto'));
+
+    // Activar actual
+    btn.classList.add('activo');
+    const id = btn.dataset.tab;
+    document.getElementById(id).classList.remove('oculto');
+  });
+});
 

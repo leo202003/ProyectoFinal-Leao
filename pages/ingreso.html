@@ -27,20 +27,59 @@
                 <button class="btn-tab" data-tab="conductores">Conductores</button>
             </div>
 
-            <div class="pedido-ing" id="pedidos">
-                <!-- Tabla de pedidos -->
+            <div class="contenido-tab" id="pedidos">
+                <form id="form-ingreso-pedido">
+                    <label>Negocio:
+                        <input type="text" id="Negocio" name="Negocio" required>
+                    </label><br><br>
+                    <label>Cliente:
+                        <input type="text" id="Cliente" name="Cliente" required>
+                    </label><br><br>
+                    <label>Direccion:
+                        <input type="text" id="Direccion" name="Direccion" required>
+                    </label><br><br>
+                    <label>Telefono:
+                        <input type="text" id="Telefono" name="Telefono" required>
+                    </label><br><br>
+                    <button type="submit">Ingresar Pedido</button>
+                </form>
             </div>
 
-            <div class="contenido-ing oculto" id="negocios">
-                <!-- Tabla de negocios -->
+            <div class="contenido-tab oculto" id="negocios">
+                <form id="form-ingreso-negocio">
+                    <label>Nombre:
+                        <input type="text" id="nombre" name="nombre" required>
+                    </label><br><br>
+                    <label>Descripcion:
+                        <textarea id="desc" name="desc" rows="4" cols="50" required></textarea>
+                    </label><br><br>
+                    <button type="submit">Ingresar Negocio</button>
+                </form>
+            </div>
             </div>
 
-            <div class="contenido-ing oculto" id="clientes">
-                <!-- Tabla de clientes -->
+            <div class="contenido-tab oculto" id="clientes">
+                <form id="form-ingreso-cliente">
+                    <label>Nombre:
+                        <input type="text" id="nombreCliente" name="nombreCliente" required>
+                    </label><br><br>
+                    <label>Direccion:
+                        <input type="text" id="Direccion" name="Direccion" required>
+                    </label><br><br>
+                    <label>Telefono:
+                        <input type="text" id="Telefono" name="Telefono" required>
+                    </label><br><br>
+                    <button type="submit">Ingresar Cliente</button>
+                </form>
             </div>
 
-            <div class="contenido-ing oculto" id="conductores">
-                <!-- Tabla de conductores -->
+            <div class="contenido-tab oculto" id="conductores">
+                <form id="form-ingreso-conductores">
+                    <label>Nombre:
+                        <input type="text" id="nombreConductor" name="nombreConductor" required>
+                    </label><br><br>
+                    <button type="submit">Ingresar Conductor</button>
+                </form>
             </div>
         </section>
     </main>

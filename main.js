@@ -312,14 +312,214 @@ const contenidos = document.querySelectorAll('.contenido-tab');
 
 tabs.forEach(btn => {
   btn.addEventListener('click', () => {
-    // Reset
+
     tabs.forEach(b => b.classList.remove('activo'));
     contenidos.forEach(c => c.classList.add('oculto'));
-
-    // Activar actual
     btn.classList.add('activo');
     const id = btn.dataset.tab;
     document.getElementById(id).classList.remove('oculto');
   });
 });
+
+//CLASES
+class Cliente {
+    constructor(nombre, direccion, telefono) {
+        this.nombre = nombre;
+        this.direccion = direccion;
+        this.telefono = telefono;
+    }
+}
+
+
+class Negocio {
+    constructor(id, nombre, descripcion) {
+        this.id = id;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+    }
+}
+
+let Estado = ["Pendiente", "En tránsito", "Entregado", "Cancelado"];
+
+class Conductor {
+    constructor(nombre) {
+        this.nombre = nombre;
+    }
+}
+
+class Pedido {
+    constructor(id, negocio, cliente, direccion, telefono, estado, conductor) {
+        this.id = id;
+        this.negocio = negocio;
+        this.cliente = cliente;
+        this.direccion = direccion;
+        this.telefono =telefono;
+        this.estado = estado;
+        this.conductor = conductor;
+    }
+}
+
+//FUNCION DE COMPRARACION DE STRINGS
+function normalizarTexto(texto) {
+    return texto
+    .toLowerCase()              
+    .replace(/\s+/g, '')        
+    .normalize('NFD')           
+    .replace(/[\u0300-\u036f]/g, ''); 
+}
+
+//FUNCIONES PARA COMUNICARSE CON LOCALSTORAGE
+function obtenerPedidos() {
+    return JSON.parse(localStorage.getItem('pedidos')) || [];
+}
+
+function guardarPedidos(pedidos) {
+    localStorage.setItem('pedidos', JSON.stringify(pedidos));
+}
+
+function obtenerNegocios() {
+    return JSON.parse(localStorage.getItem('negocios')) || [];
+}
+
+function guardarNegocios(negocios) {
+    localStorage.setItem('negocios', JSON.stringify(negocios));
+}
+
+function obtenerClientes() {
+    return JSON.parse(localStorage.getItem('clientes')) || [];
+}
+
+function guardarClientes(clientes) {
+    localStorage.setItem('clientes', JSON.stringify(clientes));
+}
+function obtenerConductores() {
+    return JSON.parse(localStorage.getItem('conductores')) || [];
+}
+
+function guardarConductores(conductores) {
+    localStorage.setItem('conductores', JSON.stringify(conductores));
+}
+
+function generarNuevoId(arreglo) {
+    return arreglo.length > 0 ? arreglo[arreglo.length - 1].id + 1 : 1;
+}
+
+//INGRESAR PEDIDOS POR FORMULARIO
+const formularioPedido = document.getElementById("form-ingreso-pedido");
+
+formularioPedido.addEventListener('submit', function(evento) {
+    evento.preventDefault();
+
+    const pedidos = obtenerPedidos();
+    const datos = new FormData(formularioPedido);
+    const negocios = obtenerNegocios();
+    const clientes = obtenerClientes();
+    let existe = negocios.some(n => normalizarTexto(datos.get('Negocio')) == normalizarTexto(n.nombre));
+    let existeCliente = clientes.some(c => normalizarTexto(datos.get('nombre')) == normalizarTexto(c.nombre));
+    if (existe) {
+        if (!existeCliente) {
+            const nuevoCliente = new Cliente(
+                datos.get('Cliente'),
+                datos.get('Direccion'),
+                datos.get('Telefono'),
+            )
+            clientes.push(nuevoCliente);
+            guardarClientes(clientes);
+        }
+        const nuevoId = generarNuevoId(pedidos);
+        const nuevoPedido = new Pedido(
+            nuevoId,
+            datos.get('Negocio'),
+            datos.get('Cliente'),
+            datos.get('Direccion'),
+            datos.get('Telefono'),
+            Estado[0],
+            undefined
+        )
+        pedidos.push(nuevoPedido);
+        guardarPedidos(pedidos);
+        alert("✅ Pedido ingresado con éxito. Redirigiendo...");
+        setTimeout(() => {
+                window.location.href = '../index.html';
+        }, 500);
+    } else {
+        let ingresar = confirm("⚠️ Negocio no ingresado en sistema\n ¿Desea ingresarlo?");
+        if (ingresar) {
+            document.querySelector('[data-tab="negocios"]').click();
+        }
+    }
+    formularioPedido.reset();
+})
+
+//INGRESAR NEGOCIOS POR FORMULARIO
+const formularioNegocios = document.getElementById('form-ingreso-negocio');
+
+formularioNegocios.addEventListener('submit', function(evento) {
+    evento.preventDefault();
+
+    const negocios = obtenerNegocios();
+    const datos = new FormData(formularioNegocios);
+    let existe = negocios.some(n => normalizarTexto(datos.get('nombre')) == normalizarTexto(n.nombre));
+    if (!existe) {
+        const nuevoId = generarNuevoId(negocios);
+        const nuevoNegocio = new Negocio(
+            nuevoId,
+            datos.get('nombre'),
+            datos.get('desc')
+        )
+        negocios.push(nuevoNegocio);
+        guardarNegocios(negocios);
+        alert("✅ Negocio ingresado con éxito.");
+    } else {
+        alert("⚠️ Negocio ya ingresado en el sistema");
+    }
+    formularioNegocios.reset();
+})
+
+//INGRESAR CLIENTES POR FORMULARIO
+const formularioClientes = document.getElementById('form-ingreso-cliente');
+
+formularioClientes.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const clientes = obtenerClientes();
+    const datos = new FormData(formularioClientes);
+    let existe = clientes.some(c => normalizarTexto(datos.get('nombreCliente')) == normalizarTexto(c.nombre));
+    if(!existe) {
+        const nuevoCliente = new Cliente(
+            datos.get('nombreCliente'),
+            datos.get('Direccion'),
+            datos.get('Telefono'),
+        )
+        clientes.push(nuevoCliente);
+        guardarClientes(clientes);
+        alert("✅ Cliente ingresado con éxito.");
+    } else {
+        alert("⚠️ Cliente ya ingresado en el sistema");
+    }
+    formularioClientes.reset();
+})
+
+//INGRESAR CONDUCTORES POR FORMULARIO
+const formularioConductores = document.getElementById('form-ingreso-conductores');
+
+formularioConductores.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const conductores = obtenerConductores();
+    const datos = new FormData(formularioConductores);
+    let existe = conductores.some(c => normalizarTexto(datos.get('nombreConductor')) == normalizarTexto(c.nombre));
+    if(!existe) {
+        const nuevoConductores = new Conductor(
+            datos.get('nombreConductor')
+        )
+        conductores.push(nuevoConductores);
+        guardarConductores(conductores);
+        alert("✅ Conductor ingresado con éxito.");
+    } else {
+        alert("⚠️ Conductor ya ingresado en el sistema");
+    }
+    formularioConductores.reset();
+})
+
 

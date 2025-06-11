@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="../styles.css">
     <title>EnviosUY</title>
 </head>
-<body>
+<body data-page="listado">
     <header>
         <nav>
             <div class="logo">EnviosUY</div>
@@ -28,19 +28,119 @@
             </div>
 
             <div class="contenido-tab" id="pedidos">
-                <!-- Tabla de pedidos -->
+                <form id="form-filtro-pedido" autocomplete="off">
+                    <label>ID:
+                        <input type="text" id="id" name="id">
+                    </label><br><br>
+                    <label>Negocio:
+                        <input type="text" id="negocio" name="negocio">
+                    </label><br><br>
+                    <label>Cliente:
+                        <input type="text" id="cliente" name="cliente">
+                    </label><br><br>
+                    <label>Direccion:
+                        <input type="text" id="direccion" name="direccion">
+                    </label><br><br>
+                    <label>Telefono:
+                        <input type="text" id="telefono" name="telefono">
+                    </label><br><br>
+                    <label>Conductor:
+                        <input type="text" id="conductor" name="conductor">
+                    </label><br><br>
+                    <button type="submit">Buscar</button>
+                </form>
+
+                <table class="lista-envios" id="lista-pedidos">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Negocio</th>
+                        <th>Cliente</th>
+                        <th>Destino</th>
+                        <th>Telefono</th>
+                        <th id="estado">Estado</th>
+                        <th>Conductor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+            </table>
             </div>
 
             <div class="contenido-tab oculto" id="negocios">
-                <!-- Tabla de negocios -->
+                <form id="form-filtro-negocios" autocomplete="off">
+                    <label>Nombre:
+                        <input type="text" id="nomnegocio" name="nomnegocio">
+                    </label><br><br>
+                    <button type="submit">Buscar</button>
+                </form>
+
+                <table class="lista-envios" id="lista-negocios">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Descripcion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+            </table>
             </div>
 
             <div class="contenido-tab oculto" id="clientes">
-                <!-- Tabla de clientes -->
+                <form id="form-filtro-clientes" autocomplete="off">
+                    <label>Nombre:
+                        <input type="text" id="nomcliente" name="nomcliente">
+                    </label><br><br>
+                    <label>Direccion:
+                        <input type="text" id="direcliente" name="direcliente">
+                    </label><br><br>
+                    <label>Telefono:
+                        <input type="text" id="telcliente" name="telcliente">
+                    </label><br><br>
+                    <button type="submit">Buscar</button>
+                </form>
+
+            <table class="lista-envios" id="lista-clientes">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Direccion</th>
+                        <th>Telefono</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+            </table>
             </div>
 
             <div class="contenido-tab oculto" id="conductores">
-                <!-- Tabla de conductores -->
+                <form id="form-filtro-conductores" autocomplete="off">
+                    <label>Nombre:
+                        <input type="text" id="nomconductor" name="nomconductor">
+                    </label><br><br>
+                    <label>Telefono:
+                        <input type="text" id="telconductor" name="telconductor">
+                    </label><br><br>
+                    <button type="submit">Buscar</button>
+                </form>
+
+                <table class="lista-envios" id="lista-conductores">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Telefono</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+            </table>
+
+
             </div>
         </section>
     </main>

@@ -343,8 +343,9 @@ class Negocio {
 let Estado = ["Pendiente", "En tránsito", "Entregado", "Cancelado"];
 
 class Conductor {
-    constructor(nombre) {
+    constructor(nombre, telefono) {
         this.nombre = nombre;
+        this.telefono = telefono;
     }
 }
 
@@ -407,7 +408,7 @@ function generarNuevoId(arreglo) {
 
 function actualizarTablaPedidos() {
     const pedidos = obtenerPedidos();
-    const tabla = document.querySelector('#lista-envios tbody');
+    const tabla = document.querySelector('.lista-envios tbody');
 
     pedidos.forEach(p => {
         const fila = document.createElement('tr');
@@ -431,7 +432,7 @@ function actualizarTablaPedidos() {
 
 //INGRESAR PEDIDOS POR FORMULARIO
 
-if (page == 'ingreso') {
+if (page === 'ingreso') {
 
     const formularioPedido = document.getElementById("form-ingreso-pedido");
 
@@ -539,7 +540,8 @@ if (page == 'ingreso') {
         let existe = conductores.some(c => normalizarTexto(datos.get('nombreConductor')) == normalizarTexto(c.nombre));
         if(!existe) {
             const nuevoConductores = new Conductor(
-                datos.get('nombreConductor')
+                datos.get('nombreConductor'),
+                datos.get('telConductor')
             )
             conductores.push(nuevoConductores);
             guardarConductores(conductores);
@@ -554,4 +556,154 @@ if (page == 'ingreso') {
 
 if (page === 'index') {
     actualizarTablaPedidos();
+}
+
+if (page === 'listado') {
+
+    //FILTRO DE LISTADO DE PEDIDOS
+    
+    const formularioFiltroPedidos = document.getElementById('form-filtro-pedido');
+
+    function actualizarTablaPedidos(pedidosFiltrados) {
+        const tabla = document.querySelector('#lista-pedidos tbody');
+        tabla.innerHTML = '';
+        pedidosFiltrados.forEach(p => {
+            const fila = document.createElement('tr');
+            fila.innerHTML = `
+                <td>${p.id}</td>
+                <td>${p.negocio}</td>
+                <td>${p.cliente}</td>
+                <td>${p.direccion}</td>
+                <td>${p.telefono}</td>
+                <td>${p.estado}</td>
+                <td>${p.conductor || '-'}</td>
+            `;
+            tabla.appendChild(fila);
+        })  
+    }
+
+    formularioFiltroPedidos.addEventListener("submit" , function(e) {
+        e.preventDefault();
+
+        const datos = new FormData(formularioFiltroPedidos);
+        const id = datos.get('id');
+        const negocio = datos.get('negocio');
+        const cliente = datos.get('cliente');
+        const direccion = datos.get('direccion');
+        const telefono = datos.get('telefono');
+        const conductor = datos.get('conductor');
+        const filtros = {id, negocio, cliente, direccion, telefono, conductor};
+        const pedidos = obtenerPedidos();
+        const pedidosFiltrados = pedidos.filter(p => {
+            return ((!filtros.id || p.id.toString() === filtros.id.trim()) &&
+                    (!filtros.negocio || normalizarTexto(p.negocio).includes(normalizarTexto(filtros.negocio))) &&
+                    (!filtros.cliente || normalizarTexto(p.cliente).includes(normalizarTexto(filtros.cliente))) &&
+                    (!filtros.direccion || normalizarTexto(p.direccion).includes(normalizarTexto(filtros.direccion))) &&
+                    (!filtros.telefono || normalizarTexto(p.telefono).includes(normalizarTexto(filtros.telefono))) &&
+                    (!filtros.conductor || (p.conductor && normalizarTexto(p.conductor).includes(normalizarTexto(filtros.conductor))))) 
+        })
+        actualizarTablaPedidos(pedidosFiltrados);
+    })
+    
+    actualizarTablaPedidos(obtenerPedidos());
+
+    //FILTRO DE LISTADO DE NEGOCIOS
+    
+    const formularioFiltroNegocios = document.getElementById('form-filtro-negocios');
+
+    function actualizarTablaNegocios(negociosFiltrados) {
+        const tabla = document.querySelector('#lista-negocios tbody');
+        tabla.innerHTML = '';
+        negociosFiltrados.forEach(n => {
+                const fila = document.createElement('tr');
+                fila.innerHTML = `
+                    <td>${n.nombre}</td>
+                    <td>${n.descripcion}</td>
+                `;
+                tabla.appendChild(fila);
+            })   
+    }
+
+    formularioFiltroNegocios.addEventListener('submit' , function(e) {
+        e.preventDefault();
+        const datos = new FormData(formularioFiltroNegocios);
+        const filtros = {nombre: datos.get('nomnegocio')};
+        const negocios = obtenerNegocios();
+        const negociosFiltrados = negocios.filter(n => {
+            return ((!filtros.nombre || normalizarTexto(n.nombre).includes(normalizarTexto(filtros.nombre))))
+        })
+        actualizarTablaNegocios(negociosFiltrados);
+    })
+
+    actualizarTablaNegocios(obtenerNegocios());
+
+    //FILTRO DE LISTADO DE CLIENTES
+
+    const formularioFiltroClientes = document.getElementById('form-filtro-clientes');
+
+    function actualizarTablaClientes(clientesFiltrados) {
+        const tabla = document.querySelector('#lista-clientes tbody');
+        tabla.innerHTML = '';
+        clientesFiltrados.forEach(c => {
+                const fila = document.createElement('tr');
+                fila.innerHTML = `
+                    <td>${c.nombre}</td>
+                    <td>${c.direccion}</td>
+                    <td>${c.telefono}</td>
+                `;
+                tabla.appendChild(fila);
+            })   
+    }
+
+    formularioFiltroClientes.addEventListener('submit' , function(e) {
+        e.preventDefault();
+        const datos = new FormData(formularioFiltroClientes);
+        const filtros = {nombre: datos.get('nomcliente'), direccion: datos.get('direcliente'), telefono: datos.get('telcliente')};
+        const clientes = obtenerClientes();
+        const clientesFiltrados = clientes.filter(c => {
+            return (
+                (!filtros.nombre || normalizarTexto(c.nombre).includes(normalizarTexto(filtros.nombre))) &&
+                (!filtros.direccion || normalizarTexto(c.direccion).includes(normalizarTexto(filtros.direccion))) &&
+                (!filtros.telefono || normalizarTexto(c.telefono).includes(normalizarTexto(filtros.telefono)))
+            )
+        })
+        actualizarTablaClientes(clientesFiltrados);
+    })
+
+    actualizarTablaClientes(obtenerClientes());
+
+    //FILTRO DE LISTADO DE CONDUCTORES
+
+    const formularioFiltroConductores = document.getElementById('form-filtro-conductores');
+
+    function actualizarTablaConductores(conductoresFiltrados) {
+        const tabla = document.querySelector('#lista-conductores tbody');
+        tabla.innerHTML = '';
+        conductoresFiltrados.forEach(c => {
+                const fila = document.createElement('tr');
+                fila.innerHTML = `
+                    <td>${c.nombre}</td>
+                    <td>${c.telefono}</td>
+                `;
+                tabla.appendChild(fila);
+            })   
+    }
+
+    formularioFiltroConductores.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const datos = new FormData(formularioFiltroConductores);
+        const filtros = {nombre: datos.get('nomconductor'), telefono: datos.get('telconductor')};
+        const conductores = obtenerConductores();
+        const conductoresFiltrados = conductores.filter(c => {
+            return (
+                (!filtros.nombre || normalizarTexto(c.nombre).includes(normalizarTexto(filtros.nombre))) &&
+                (!filtros.telefono || normalizarTexto(c.telefono).includes(normalizarTexto(filtros.telefono)))
+            )
+        })
+        actualizarTablaConductores(conductoresFiltrados);
+    })
+
+    actualizarTablaConductores(obtenerConductores());
+
 }

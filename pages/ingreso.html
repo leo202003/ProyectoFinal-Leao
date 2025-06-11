@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="../styles.css">
     <title>EnviosUY</title>
 </head>
-<body>
+<body data-page="ingreso">
     <header>
         <nav>
             <div class="logo">EnviosUY</div>
@@ -28,7 +28,7 @@
             </div>
 
             <div class="contenido-tab" id="pedidos">
-                <form id="form-ingreso-pedido">
+                <form id="form-ingreso-pedido" autocomplete="off">
                     <label>Negocio:
                         <input type="text" id="Negocio" name="Negocio" required>
                     </label><br><br>
@@ -46,12 +46,12 @@
             </div>
 
             <div class="contenido-tab oculto" id="negocios">
-                <form id="form-ingreso-negocio">
+                <form id="form-ingreso-negocio" autocomplete="off">
                     <label>Nombre:
                         <input type="text" id="nombre" name="nombre" required>
                     </label><br><br>
                     <label>Descripcion:
-                        <textarea id="desc" name="desc" rows="4" cols="50" required></textarea>
+                        <textarea id="desc" name="desc" rows="4" cols="50" placeholder="Venta de artículos electrónicos y accesorios..." required></textarea>
                     </label><br><br>
                     <button type="submit">Ingresar Negocio</button>
                 </form>
@@ -59,7 +59,7 @@
             </div>
 
             <div class="contenido-tab oculto" id="clientes">
-                <form id="form-ingreso-cliente">
+                <form id="form-ingreso-cliente" autocomplete="off">
                     <label>Nombre:
                         <input type="text" id="nombreCliente" name="nombreCliente" required>
                     </label><br><br>
@@ -73,7 +73,7 @@
                 </form>
             </div>
 
-            <div class="contenido-tab oculto" id="conductores">
+            <div class="contenido-tab oculto" id="conductores" autocomplete="off">
                 <form id="form-ingreso-conductores">
                     <label>Nombre:
                         <input type="text" id="nombreConductor" name="nombreConductor" required>
@@ -83,7 +83,6 @@
             </div>
         </section>
     </main>
-
-    <script src="../main.js"></script>
+    <script src="../main.js" defer></script>
 </body>
 </html>

@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="styles.css">
     <title>EnviosUY</title>
 </head>
-<body>
+<body data-page="index">
     <header>
         <nav>
             <div class="logo">EnviosUY</div>
@@ -27,12 +27,12 @@
         </section>
         
         <section class="acciones">
-            <button class="btn">Ingresar Pedido</button>
+            <a href="pages/ingreso.html"><button class="btn">Ingresar Pedido</button></a>
             <button class="btn">Asignar Conductor</button>
         </section>
 
-        <section class="lista-envios">
-            <table>
+        <section>
+            <table id="lista-envios">
                 <thead>
                     <tr>
                         <th></th>
@@ -40,28 +40,17 @@
                         <th>Negocio</th>
                         <th>Cliente</th>
                         <th>Destino</th>
+                        <th>Telefono</th>
                         <th id="estado">Estado</th>
                         <th>Conductor</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>
-                            <label class="checkbox-container">
-                            <input type="checkbox" />
-                            </label>
-                        </td>
-                        <td>001</td>
-                        <td>Comercio A</td>
-                        <td>Leo</td>
-                        <td>Montevideo</td>
-                        <td>En tránsito</td>
-                        <td>Jose Gervasio</td>
-                    </tr>
+                    
                 </tbody>
             </table>
         </section>
     </main>
-    <script src="main.js"></script>
+    <script src="main.js" defer></script>
 </body>
 </html>

@@ -306,6 +306,7 @@ while (opcion != 11) {
     }
     opcion = parseInt(prompt("MENU\n 1 - Ingresar Pedido\n 2 - Ingresar Cliente\n 3 - Ingresar Negocio\n 4 - Ingresar Conductor\n 5 - Asignar Pedido\n 6 - Listado de Pedidos\n 7 - Listado de Negocios\n 8 - Listado de Conductores\n 9 - Listado de Clientes\n 10 - Cancelar Pedido\n 11 - Salir"));
 }*/
+const page = document.body.dataset.page;
 
 const tabs = document.querySelectorAll('.btn-tab');
 const contenidos = document.querySelectorAll('.contenido-tab');
@@ -404,122 +405,153 @@ function generarNuevoId(arreglo) {
     return arreglo.length > 0 ? arreglo[arreglo.length - 1].id + 1 : 1;
 }
 
-//INGRESAR PEDIDOS POR FORMULARIO
-const formularioPedido = document.getElementById("form-ingreso-pedido");
-
-formularioPedido.addEventListener('submit', function(evento) {
-    evento.preventDefault();
-
+function actualizarTablaPedidos() {
     const pedidos = obtenerPedidos();
-    const datos = new FormData(formularioPedido);
-    const negocios = obtenerNegocios();
-    const clientes = obtenerClientes();
-    let existe = negocios.some(n => normalizarTexto(datos.get('Negocio')) == normalizarTexto(n.nombre));
-    let existeCliente = clientes.some(c => normalizarTexto(datos.get('nombre')) == normalizarTexto(c.nombre));
-    if (existe) {
-        if (!existeCliente) {
-            const nuevoCliente = new Cliente(
+    const tabla = document.querySelector('#lista-envios tbody');
+
+    pedidos.forEach(p => {
+        const fila = document.createElement('tr');
+        fila.innerHTML = `
+            <td>
+                <label class="checkbox-container">
+                <input type="checkbox"/>
+                </label>
+            </td>
+            <td>${p.id}</td>
+            <td>${p.negocio}</td>
+            <td>${p.cliente}</td>
+            <td>${p.direccion}</td>
+            <td>${p.telefono}</td>
+            <td>${p.estado}</td>
+            <td>${p.conductor || '-'}</td>
+        `;
+        tabla.appendChild(fila);
+    })
+}
+
+//INGRESAR PEDIDOS POR FORMULARIO
+
+if (page == 'ingreso') {
+
+    const formularioPedido = document.getElementById("form-ingreso-pedido");
+
+    formularioPedido.addEventListener('submit', function(evento) {
+        evento.preventDefault();
+
+        const pedidos = obtenerPedidos();
+        const datos = new FormData(formularioPedido);
+        const negocios = obtenerNegocios();
+        const clientes = obtenerClientes();
+        let existe = negocios.some(n => normalizarTexto(datos.get('Negocio')) == normalizarTexto(n.nombre));
+        let existeCliente = clientes.some(c => normalizarTexto(datos.get('Cliente')) == normalizarTexto(c.nombre));
+        if (existe) {
+            if (!existeCliente) {
+                const nuevoCliente = new Cliente(
+                    datos.get('Cliente'),
+                    datos.get('Direccion'),
+                    datos.get('Telefono'),
+                )
+                clientes.push(nuevoCliente);
+                guardarClientes(clientes);
+            }
+            const nuevoId = generarNuevoId(pedidos);
+            const nuevoPedido = new Pedido(
+                nuevoId,
+                datos.get('Negocio'),
                 datos.get('Cliente'),
+                datos.get('Direccion'),
+                datos.get('Telefono'),
+                Estado[0],
+                undefined
+            )
+            pedidos.push(nuevoPedido);
+            guardarPedidos(pedidos);
+            alert("✅ Pedido ingresado con éxito. Redirigiendo...");
+            setTimeout(() => {
+                    window.location.href = '../index.html';
+            }, 500);
+        } else {
+            let ingresar = confirm("⚠️ Negocio no ingresado en sistema\n ¿Desea ingresarlo?");
+            if (ingresar) {
+                document.querySelector('[data-tab="negocios"]').click();
+            }
+        }
+        formularioPedido.reset();
+    })
+
+    //INGRESAR NEGOCIOS POR FORMULARIO
+    const formularioNegocios = document.getElementById('form-ingreso-negocio');
+
+    formularioNegocios.addEventListener('submit', function(evento) {
+        evento.preventDefault();
+
+        const negocios = obtenerNegocios();
+        const datos = new FormData(formularioNegocios);
+        let existe = negocios.some(n => normalizarTexto(datos.get('nombre')) == normalizarTexto(n.nombre));
+        if (!existe) {
+            const nuevoId = generarNuevoId(negocios);
+            const nuevoNegocio = new Negocio(
+                nuevoId,
+                datos.get('nombre'),
+                datos.get('desc')
+            )
+            negocios.push(nuevoNegocio);
+            guardarNegocios(negocios);
+            alert("✅ Negocio ingresado con éxito.");
+        } else {
+            alert("⚠️ Negocio ya ingresado en el sistema");
+        }
+        formularioNegocios.reset();
+    })
+
+    //INGRESAR CLIENTES POR FORMULARIO
+    const formularioClientes = document.getElementById('form-ingreso-cliente');
+
+    formularioClientes.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const clientes = obtenerClientes();
+        const datos = new FormData(formularioClientes);
+        let existe = clientes.some(c => normalizarTexto(datos.get('nombreCliente')) == normalizarTexto(c.nombre));
+        if(!existe) {
+            const nuevoCliente = new Cliente(
+                datos.get('nombreCliente'),
                 datos.get('Direccion'),
                 datos.get('Telefono'),
             )
             clientes.push(nuevoCliente);
             guardarClientes(clientes);
+            alert("✅ Cliente ingresado con éxito.");
+        } else {
+            alert("⚠️ Cliente ya ingresado en el sistema");
         }
-        const nuevoId = generarNuevoId(pedidos);
-        const nuevoPedido = new Pedido(
-            nuevoId,
-            datos.get('Negocio'),
-            datos.get('Cliente'),
-            datos.get('Direccion'),
-            datos.get('Telefono'),
-            Estado[0],
-            undefined
-        )
-        pedidos.push(nuevoPedido);
-        guardarPedidos(pedidos);
-        alert("✅ Pedido ingresado con éxito. Redirigiendo...");
-        setTimeout(() => {
-                window.location.href = '../index.html';
-        }, 500);
-    } else {
-        let ingresar = confirm("⚠️ Negocio no ingresado en sistema\n ¿Desea ingresarlo?");
-        if (ingresar) {
-            document.querySelector('[data-tab="negocios"]').click();
+        formularioClientes.reset();
+    })
+
+    //INGRESAR CONDUCTORES POR FORMULARIO
+    const formularioConductores = document.getElementById('form-ingreso-conductores');
+
+    formularioConductores.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const conductores = obtenerConductores();
+        const datos = new FormData(formularioConductores);
+        let existe = conductores.some(c => normalizarTexto(datos.get('nombreConductor')) == normalizarTexto(c.nombre));
+        if(!existe) {
+            const nuevoConductores = new Conductor(
+                datos.get('nombreConductor')
+            )
+            conductores.push(nuevoConductores);
+            guardarConductores(conductores);
+            alert("✅ Conductor ingresado con éxito.");
+        } else {
+            alert("⚠️ Conductor ya ingresado en el sistema");
         }
-    }
-    formularioPedido.reset();
-})
+        formularioConductores.reset();
+    })
 
-//INGRESAR NEGOCIOS POR FORMULARIO
-const formularioNegocios = document.getElementById('form-ingreso-negocio');
+}
 
-formularioNegocios.addEventListener('submit', function(evento) {
-    evento.preventDefault();
-
-    const negocios = obtenerNegocios();
-    const datos = new FormData(formularioNegocios);
-    let existe = negocios.some(n => normalizarTexto(datos.get('nombre')) == normalizarTexto(n.nombre));
-    if (!existe) {
-        const nuevoId = generarNuevoId(negocios);
-        const nuevoNegocio = new Negocio(
-            nuevoId,
-            datos.get('nombre'),
-            datos.get('desc')
-        )
-        negocios.push(nuevoNegocio);
-        guardarNegocios(negocios);
-        alert("✅ Negocio ingresado con éxito.");
-    } else {
-        alert("⚠️ Negocio ya ingresado en el sistema");
-    }
-    formularioNegocios.reset();
-})
-
-//INGRESAR CLIENTES POR FORMULARIO
-const formularioClientes = document.getElementById('form-ingreso-cliente');
-
-formularioClientes.addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    const clientes = obtenerClientes();
-    const datos = new FormData(formularioClientes);
-    let existe = clientes.some(c => normalizarTexto(datos.get('nombreCliente')) == normalizarTexto(c.nombre));
-    if(!existe) {
-        const nuevoCliente = new Cliente(
-            datos.get('nombreCliente'),
-            datos.get('Direccion'),
-            datos.get('Telefono'),
-        )
-        clientes.push(nuevoCliente);
-        guardarClientes(clientes);
-        alert("✅ Cliente ingresado con éxito.");
-    } else {
-        alert("⚠️ Cliente ya ingresado en el sistema");
-    }
-    formularioClientes.reset();
-})
-
-//INGRESAR CONDUCTORES POR FORMULARIO
-const formularioConductores = document.getElementById('form-ingreso-conductores');
-
-formularioConductores.addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    const conductores = obtenerConductores();
-    const datos = new FormData(formularioConductores);
-    let existe = conductores.some(c => normalizarTexto(datos.get('nombreConductor')) == normalizarTexto(c.nombre));
-    if(!existe) {
-        const nuevoConductores = new Conductor(
-            datos.get('nombreConductor')
-        )
-        conductores.push(nuevoConductores);
-        guardarConductores(conductores);
-        alert("✅ Conductor ingresado con éxito.");
-    } else {
-        alert("⚠️ Conductor ya ingresado en el sistema");
-    }
-    formularioConductores.reset();
-})
-
-
+if (page === 'index') {
+    actualizarTablaPedidos();
+}

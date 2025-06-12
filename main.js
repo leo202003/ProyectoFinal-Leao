@@ -1,325 +1,17 @@
-//DATOS YA INGRESADOS EN EL SISTEMA PREVIAMENTE
-/*let Clientes = [
-    {
-        id: 1,
-        nombre: "Leonardo",
-        direccion: "Bulevar Artigas 1825, Montevideo", 
-        telefono: "099 812 345",
-    }, 
-    {
-        id: 2,
-        nombre: "Jose",
-        direccion: "18 de Julio 945, Maldonado",
-        telefono: "092 456 789",
-    },
-    {
-        id: 3,
-        nombre: "Lara",
-        direccion: "Avenida Italia 4567, Montevideo",
-        telefono: "098 133 579",
-    },
-    {
-        id: 4,
-        nombre: "Ana",
-        direccion: "Luis Alberto de Herrera 123, Rivera",
-        telefono: "091 647 203",
-    },
-    {
-        id: 5,
-        nombre: "Lucia",
-        direccion: "Ruta 3 Km 92.5, San José",
-        telefono: "094 321 887",
-    },
-    {
-        id: 6,
-        nombre: "Manuel",
-        direccion: "José Enrique Rodó 789, Salto",
-        telefono: "093 775 421",
-    }
-];
-
-let Negocios = [
-    {
-        id: 1,
-        nombre: "ByteSur",
-        descripcion: "Venta de computadoras, componentes y accesorios tech. También brindan soporte técnico y envíos a domicilio.",
-    },
-    {
-        id: 2,
-        nombre: "El Barrilito Express",
-        descripcion: "Tienda especializada en cervezas artesanales, vinos y bebidas importadas. Ofrece delivery rápido.",
-    },
-    {
-        id: 3,
-        nombre: "Urbanaje",
-        descripcion: "Ropa urbana, streetwear y accesorios de moda joven. Cuenta con tienda online y promociones exclusivas por la app.",
-    },
-];
-
-let Estado = ["Pendiente", "Retirado", "Entregado", "Cancelado"];
-
-let Repartidores = ["Gonzalo Mendez", "Luis Rodriguez", "Sofia Lopez"]
-
-let Pedidos = [
-    {
-        id: 1,
-        negocio: Negocios[0].nombre,
-        cliente: Clientes[2].nombre,
-        destino: Clientes[2].direccion,
-        estado: Estado[1],
-        repartidor: Repartidores[0],
-    },
-    {
-        id: 2,
-        negocio: Negocios[1].nombre,
-        cliente: Clientes[1].nombre,
-        destino: Clientes[1].direccion,
-        estado: Estado[2],
-        repartidor: Repartidores[1],
-    },
-    {
-        id: 3,
-        negocio: Negocios[2].nombre,
-        cliente: Clientes[0].nombre,
-        destino: Clientes[0].direccion,
-        estado: Estado[0],
-        repartidor: Repartidores[4],
-    },
-    {
-        id: 4,
-        negocio: Negocios[0].nombre,
-        cliente: Clientes[5].nombre,
-        destino: Clientes[5].direccion,
-        estado: Estado[1],
-        repartidor: Repartidores[2],
-    },
-    {
-        id: 5,
-        negocio: Negocios[2].nombre,
-        cliente: Clientes[4].nombre,
-        destino: Clientes[4].direccion,
-        estado: Estado[1],
-        repartidor: Repartidores[2],
-    }
-]
-
-//FUNCIONES
-
-//INGRESA UN NEGOCIO AL SISTEMA
-function ingresarNegocio() {
-    let nom = prompt("Nombre:")
-    let yaExiste = Negocios.some(n => n.nombre.toLowerCase() === nom.toLowerCase());
-    if (yaExiste) {
-        console.log(" ⚠️ Negocio ya ingresado en el sistema");
-        alert("⚠️ Negocio ya ingresado en el sistema");
-    } else {
-        let desc = prompt("Descripcion: ");
-        Negocios.push({id: Negocios.length + 1, nombre: nom, descripcion: desc});
-        console.log("✅ Negocio Ingresado Correctamente");
-        alert("✅ Negocio Ingresado Correctamente");
-    }  
-}
-
-//INGRESA UN CLIENTE AL SISTEMA
-function ingresarCliente() {
-    let nom = prompt("Nombre: ");
-    let yaExiste = Clientes.some (c => c.nombre.toLowerCase() === nom.toLowerCase());
-    if (yaExiste) {
-        console.log(" ⚠️ Cliente ya ingresado en el sistema");
-        alert("⚠️ Cliente ya ingresado en el sistema");
-    } else {
-        let direc = prompt("Direccion: ");
-        let tel = prompt("Telefono: ")
-        Clientes.push ({id: Clientes.length + 1, nombre: nom, direccion: direc, telefono: tel});
-        console.log("✅ Cliente Ingresado Correctamente");
-        alert("✅ Cliente Ingresado Correctamente");
-    } 
-}
-
-//INGRESA UN PEDIDO AL SISTEMA
-function ingresarPedido() {
-    let nomNegocio = prompt("Nombre del Negocio:")
-    //verifico si existe el negocio
-    let yaExiste = Negocios.some(n => n.nombre.toLowerCase() === nomNegocio.toLowerCase());
-    if (yaExiste) {
-        //verifico si el cliente esta en sistema
-        let nomCliente = prompt("Nombre del Cliente:")
-        let existeCliente = Clientes.some (n => n.nombre.toLowerCase() === nomCliente.toLowerCase());
-        let direc = prompt("Direccion del pedido:");
-        let tel = prompt ("Contacto del Cliente: ")
-        if (existeCliente) {
-            let posicionCliente = Clientes.findIndex(n => n.nombre.toLowerCase() === nomCliente.toLowerCase());
-            //Actualizo a su ultima direccion
-            Clientes[posicionCliente].direccion = direc;
-            //Actualizo su numero de telefono
-            Clientes[posicionCliente].telefono = tel;
-        } else {
-            //Si no existe ese cliente, se lo ingreso a sistema automaticamente
-            Clientes.push({id: Clientes.length + 1, nombre: nomCliente, direccion: direc, telefono: tel});
-        }
-        //Ingreso el pedido a sistema
-        Pedidos.push({id: Pedidos.length + 1, negocio: nomNegocio, cliente: nomCliente, destino: direc, estado: Estado[0], repartidor: undefined}) 
-        console.log("✅ Pedido Ingresado Correctamente");
-        alert("✅ Pedido Ingresado Correctamente");
-    } else {
-        console.log(" ⚠️ Negocio no ingresado en sistema");
-        let ingresar = confirm("⚠️ Negocio no ingresado en sistema\n ¿Desea ingresarlo?");
-        if (ingresar) {
-            ingresarNegocio();
-            let respuesta = confirm("¿Desea continuar ingresando su pedido?")
-            if (respuesta) {
-                ingresarPedido();
-            }
-        }
-    }    
-}
-
-//CAMBIA EL ESTADO DE UN PEDIDO A CANCELADO Y NO SALE A RUTA
-function CancelarPedido(id) {
-    let pedido = Pedidos.find(p => p.id === id);
-    pedido.estado = Estado[3];
-    console.log("✅ Pedido Cancelado");
-    alert("✅ Pedido Cancelado");
-}
-
-//ASIGNA EL PEDIDO A UN CONDUCTOR
-function asignarPedido(condcutor, id) {
-    let pedido = Pedidos.find(p => p.id === id);
-    pedido.repartidor = condcutor;
-    pedido.estado = Estado[1];
-}
-
-//MUESTRA EN TERMINAL EL ARRAY INGRESADO COMO PARAMETRO
-function verListado(Array) {
-    for (let i = 0; i < Array.length; i++) {
-        console.log(Array[i]);
-    }
-}
-
-
-
-//INGRESA CONDUCTOR AL SISTEMA
-function ingresarConductor() {
-    let nomConductor = prompt("Nombre: ");
-    let registrado = Repartidores.some(r => r.toLowerCase() === nomConductor.toLowerCase());
-    if(!registrado) {
-        Repartidores.push(nomConductor);
-        console.log("✅ Conductor Ingresado Correctamente");
-        alert("✅ Conductor Ingresado Correctamente");
-    } else {
-        console.log("⚠️ Conductor ya registrado");
-        alert("⚠️ Conductor ya registrado");
-    }
-}
-
-//DEVUELVE LA CANTIDAD DE PEDIDOS EN SISTEMA
-function cantPedidos() {
-    return Pedidos.length;
-}
-
-//MENU
-let opcion = parseInt(prompt("MENU\n 1 - Ingresar Pedido\n 2 - Ingresar Cliente\n 3 - Ingresar Negocio\n 4 - Ingresar Conductor\n 5 - Asignar Pedido\n 6 - Listado de Pedidos\n 7 - Listado de Negocios\n 8 - Listado de Conductores\n 9 - Listado de Clientes\n 10 - Cancelar Pedido\n 11 - Salir"));
-
-while (opcion != 11) {
-    switch (opcion) {
-        case 1:
-            ingresarPedido();
-            break;
-        case 2:
-            ingresarCliente();
-            break;
-        case 3:
-            ingresarNegocio();
-            break;
-        case 4:
-            ingresarConductor();
-            break;
-        case 5:
-            let nomConductor = prompt("Nombre del conductor: ");
-            let registrado = Repartidores.some(r => r.toLowerCase() === nomConductor.toLowerCase());
-            if (!registrado) {
-                console.log(" ⚠️ Conductor no registrado")
-                let respuesta = confirm("⚠️ Conductor no registrado\n ¿Desea registrar un nuevo conductor?"); 
-                if (respuesta) {
-                    ingresarConductor();
-                    let nombre = Repartidores[Repartidores.length - 1];
-                    let id = parseInt(prompt("Ingresa la id del pedido a asignar: "));
-                    if (id <= Pedidos.length) {
-                        asignarPedido(nombre, id);
-                        console.log("✅ Pedido Asignado Correctamente");
-                        alert("✅ Pedido Asignado Correctamente a " + nombre);
-                    } else {
-                        console.log("⚠️ ID no valido");
-                        alert("⚠️ Ingrese un ID valido");
-                    }
-                } 
-            } else {
-                let id = parseInt(prompt("Ingresa la id del pedido a asignar: "));
-                if (id <= Pedidos.length) {
-                    asignarPedido(nomConductor, id);
-                    console.log("✅ Pedido Asignado Correctamente");
-                    alert("✅ Pedido Asignado Correctamente a " + nomConductor);
-                } else {
-                    console.log("⚠️ ID no valido");
-                    alert("⚠️ Ingrese un ID valido");
-                }
-            }
-            break;
-        case 6:
-            console.log("-------------------------------");
-            console.log("     LISTADO DE PEDIDOS");
-            console.log("-------------------------------");
-            console.log("TOTAL DE PEDIDOS EN SISTEMA: " + cantPedidos() + "\n");
-            verListado(Pedidos);
-            break;
-        case 7:
-            console.log("-------------------------------");
-            console.log("         NEGOCIOS");
-            console.log("-------------------------------");
-            verListado(Negocios);
-            break;
-        case 8:
-            console.log("-------------------------------");
-            console.log("        CONDUCTORES");
-            console.log("-------------------------------");
-            verListado(Repartidores);
-            break;
-        case 9:
-            console.log("-------------------------------");
-            console.log("          CLIENTES");
-            console.log("-------------------------------");
-            verListado(Clientes);
-            break;
-        case 10:
-            let id = parseInt(prompt("Ingresa la id del pedido a cancelar: "));
-            if (id <= Pedidos.length) {
-                CancelarPedido(id);
-            } else {
-                console.log("⚠️ ID no valido");
-                alert("⚠️ Ingrese un ID valido");
-            }
-            break;    
-        default:
-            console.log("⚠️ OPCION NO VALIDA")
-            alert("⚠️ OPCION NO VALIDA\n SELECCIONE 11 PARA SALIR DEL MENU");
-            break;
-    }
-    opcion = parseInt(prompt("MENU\n 1 - Ingresar Pedido\n 2 - Ingresar Cliente\n 3 - Ingresar Negocio\n 4 - Ingresar Conductor\n 5 - Asignar Pedido\n 6 - Listado de Pedidos\n 7 - Listado de Negocios\n 8 - Listado de Conductores\n 9 - Listado de Clientes\n 10 - Cancelar Pedido\n 11 - Salir"));
-}*/
 const page = document.body.dataset.page;
+
 
 const tabs = document.querySelectorAll('.btn-tab');
 const contenidos = document.querySelectorAll('.contenido-tab');
 
 tabs.forEach(btn => {
-  btn.addEventListener('click', () => {
-
-    tabs.forEach(b => b.classList.remove('activo'));
-    contenidos.forEach(c => c.classList.add('oculto'));
-    btn.classList.add('activo');
-    const id = btn.dataset.tab;
-    document.getElementById(id).classList.remove('oculto');
-  });
+    btn.addEventListener('click', () => {
+        tabs.forEach(b => b.classList.remove('activo'));
+        contenidos.forEach(c => c.classList.add('oculto'));
+        btn.classList.add('activo');
+        const id = btn.dataset.tab;
+        document.getElementById(id).classList.remove('oculto');
+    });
 });
 
 //CLASES
@@ -402,50 +94,183 @@ function guardarConductores(conductores) {
     localStorage.setItem('conductores', JSON.stringify(conductores));
 }
 
+//FUNCIONES AUXILIARES
 function generarNuevoId(arreglo) {
     return arreglo.length > 0 ? arreglo[arreglo.length - 1].id + 1 : 1;
 }
 
-function actualizarTablaPedidos() {
-    const pedidos = obtenerPedidos();
-    const tabla = document.querySelector('.lista-envios tbody');
-
-    pedidos.forEach(p => {
-        const fila = document.createElement('tr');
-        fila.innerHTML = `
-            <td>
-                <label class="checkbox-container">
-                <input type="checkbox"/>
-                </label>
-            </td>
-            <td>${p.id}</td>
-            <td>${p.negocio}</td>
-            <td>${p.cliente}</td>
-            <td>${p.direccion}</td>
-            <td>${p.telefono}</td>
-            <td>${p.estado}</td>
-            <td>${p.conductor || '-'}</td>
-        `;
-        tabla.appendChild(fila);
-    })
+//funcion de comparacion de strings
+function normalizarTexto(texto) {
+    return texto
+    .toLowerCase()              
+    .replace(/\s+/g, '')        
+    .normalize('NFD')           
+    .replace(/[\u0300-\u036f]/g, ''); 
 }
+
+
+if (page === 'index') {
+
+    function actualizarContadorPedidosTotales() {
+        const pedidos = obtenerPedidos(); 
+        const cantPedidos = pedidos.length;
+
+        const spanContador = document.querySelector('.contador-total');
+        if (spanContador) {
+            spanContador.textContent = cantPedidos;
+        }
+    }
+
+    function actualizarContadorPendientes() {
+        const pedidos = obtenerPedidos(); 
+        const pedidosPendientes = pedidos.filter(p => {
+            return (normalizarTexto(p.estado) === normalizarTexto("Pendiente"))
+        })
+        const spanContador = document.querySelector('.contador-pendientes');
+        if (spanContador) {
+            spanContador.textContent = pedidosPendientes.length;
+        }
+    }
+
+    function actualizarContadorTransito() {
+        const pedidos = obtenerPedidos(); 
+        const pedidosTransito = pedidos.filter(p => {
+            return (normalizarTexto(p.estado) === normalizarTexto("En tránsito"))
+        })
+        const spanContador = document.querySelector('.contador-transito');
+        if (spanContador) {
+            spanContador.textContent = pedidosTransito.length;
+        }
+    }
+
+    function actualizarContadorEntregado() {
+        const pedidos = obtenerPedidos(); 
+        const pedidosEntregado = pedidos.filter(p => {
+            return (normalizarTexto(p.estado) === normalizarTexto("Entregado"))
+        })
+        const spanContador = document.querySelector('.contador-entregado');
+        if (spanContador) {
+            spanContador.textContent = pedidosEntregado.length;
+        }
+    }
+    actualizarContadorEntregado();
+    actualizarContadorTransito();
+    actualizarContadorPendientes();
+    actualizarContadorPedidosTotales();
+
+    function actualizarTablaPedidos() {
+        const pedidos = obtenerPedidos();
+        const tabla = document.querySelector('.lista-envios tbody');
+
+        pedidos.forEach(p => {
+            const fila = document.createElement('tr');
+            fila.innerHTML = `
+                <td>
+                    <label class="checkbox-container">
+                    <input type="checkbox" class="checkbox-pedido" data-id="${p.id}" />
+                    </label>
+                </td>
+                <td>${p.id}</td>
+                <td>${p.negocio}</td>
+                <td>${p.cliente}</td>
+                <td>${p.direccion}</td>
+                <td>${p.telefono}</td>
+                <td>${p.estado}</td>
+                <td>${p.conductor || '-'}</td>
+            `;
+            tabla.appendChild(fila);
+        })
+    }
+    actualizarTablaPedidos();
+    
+    //ASIGNAR UN CONDUCTOR A PEDIDOS
+    document.querySelector('.acciones .btn:nth-child(2)').addEventListener('click', () => {
+        //guardo los pedidos seleccionados
+        const checkboxes = document.querySelectorAll('.checkbox-pedido:checked');
+        //si no seleccione ninguno no me deja asignar
+        if (checkboxes.length === 0) {
+            alert('⚠️ Seleccioná al menos un pedido.');
+            return;
+        }
+        //muestro el modal
+        document.getElementById('modal-conductor').classList.remove('oculto');
+        //guardo el id de los pedidos seleccionados en un array
+        const seleccionados = Array.from(checkboxes).map(cb => parseInt(cb.dataset.id));
+        //guardo los pedidos en el local storage
+        localStorage.setItem('pedidosSeleccionados', JSON.stringify(seleccionados));
+    })
+
+    //ASIGNAR EL CONDUCTOR DESDE EL MODAL
+    document.querySelector('#btn-asignar').addEventListener('click', () => {
+        //Guardo un conductor seleccionado
+        const conductorSeleccionado = document.getElementById('select-conductor').value;
+        //Si no selecciono no me deja continuar
+        if (!conductorSeleccionado) {
+            alert("⚠️ Seleccioná un conductor.");
+            return;
+        }
+
+        //pedidos generales
+        const pedidos = obtenerPedidos();
+        //pedidos seleccionados con el checkbox
+        const seleccionados = JSON.parse(localStorage.getItem('pedidosSeleccionados') || '[]');
+        //asigno el conductorSeleccionado a los pedidos seleccionados
+        pedidos.forEach (p => {
+            //cambio el estado de los pedidos
+            if (seleccionados.includes(p.id)) {
+                p.conductor = conductorSeleccionado;
+                p.estado = Estado[1];
+            }  
+        })
+        guardarPedidos(pedidos);
+        //borro los pedidos seleccionados del localstorage, oculto el modal y recargo la pagina
+        localStorage.removeItem('pedidosSeleccionados');
+        document.getElementById('modal-conductor').classList.add('oculto');
+        location.reload();
+    })
+
+    //CANCELAR LA ASIGNACION DESDE EL MODAL
+    document.getElementById('btn-cancelar').addEventListener('click', () => {
+        document.getElementById('modal-conductor').classList.add('oculto');
+        localStorage.removeItem('pedidosSeleccionados');
+    });
+
+    //MUESTRO LOS CONDUCTORES DESDE EL SELECT
+    const select = document.getElementById('select-conductor');
+    const conductores = obtenerConductores();
+    conductores.forEach(c => {
+        const option = document.createElement('option');
+        option.value = c.nombre;
+        option.textContent = c.nombre;
+        select.appendChild(option);
+    });
+
+
+
+}
+
 
 //INGRESAR PEDIDOS POR FORMULARIO
 
 if (page === 'ingreso') {
 
+    //Obtengo el formulario de ingreso del pedido
     const formularioPedido = document.getElementById("form-ingreso-pedido");
 
     formularioPedido.addEventListener('submit', function(evento) {
         evento.preventDefault();
 
         const pedidos = obtenerPedidos();
+        //Datos ingresados en el formulario
         const datos = new FormData(formularioPedido);
         const negocios = obtenerNegocios();
         const clientes = obtenerClientes();
+        //Verifico si existe el negocio y/o el cliente
         let existe = negocios.some(n => normalizarTexto(datos.get('Negocio')) == normalizarTexto(n.nombre));
         let existeCliente = clientes.some(c => normalizarTexto(datos.get('Cliente')) == normalizarTexto(c.nombre));
+        //Si existe el negocio continuo con el ingreso del pedido
         if (existe) {
+            //Si el cliente no existe, lo ingreso al sistema automaticamente para no tener que ingresarlo de forma manual
             if (!existeCliente) {
                 const nuevoCliente = new Cliente(
                     datos.get('Cliente'),
@@ -467,10 +292,12 @@ if (page === 'ingreso') {
             )
             pedidos.push(nuevoPedido);
             guardarPedidos(pedidos);
+            //Se redirige al inicio al terminar de ingresar el pedido
             alert("✅ Pedido ingresado con éxito. Redirigiendo...");
             setTimeout(() => {
                     window.location.href = '../index.html';
             }, 500);
+        //Si no existe el negocio le doy la opcion de ingresarlo
         } else {
             let ingresar = confirm("⚠️ Negocio no ingresado en sistema\n ¿Desea ingresarlo?");
             if (ingresar) {
@@ -554,19 +381,16 @@ if (page === 'ingreso') {
 
 }
 
-if (page === 'index') {
-    actualizarTablaPedidos();
-}
-
 if (page === 'listado') {
 
     //FILTRO DE LISTADO DE PEDIDOS
-    
     const formularioFiltroPedidos = document.getElementById('form-filtro-pedido');
 
+    //Actualizado el listado de pedidos, dados sus filtros
     function actualizarTablaPedidos(pedidosFiltrados) {
         const tabla = document.querySelector('#lista-pedidos tbody');
         tabla.innerHTML = '';
+        //Agrego los pedidos filtrados al listado
         pedidosFiltrados.forEach(p => {
             const fila = document.createElement('tr');
             fila.innerHTML = `
@@ -582,9 +406,10 @@ if (page === 'listado') {
         })  
     }
 
+    //FORMULARIO DEL FILTRO DE PEDIDOS
     formularioFiltroPedidos.addEventListener("submit" , function(e) {
         e.preventDefault();
-
+        //Recibo los datos de ese formulario
         const datos = new FormData(formularioFiltroPedidos);
         const id = datos.get('id');
         const negocio = datos.get('negocio');
@@ -594,8 +419,9 @@ if (page === 'listado') {
         const conductor = datos.get('conductor');
         const filtros = {id, negocio, cliente, direccion, telefono, conductor};
         const pedidos = obtenerPedidos();
+        //verifico si existen pedidos que coincidan con id, negocio, etc
         const pedidosFiltrados = pedidos.filter(p => {
-            return ((!filtros.id || p.id.toString() === filtros.id.trim()) &&
+            return ((!filtros.id || p.id.toString() === filtros.id.trim()) && //Comparo ids convirtiendo el id del pedido en string para comprar con el dato del formulario y elimino los espacios con .trim()
                     (!filtros.negocio || normalizarTexto(p.negocio).includes(normalizarTexto(filtros.negocio))) &&
                     (!filtros.cliente || normalizarTexto(p.cliente).includes(normalizarTexto(filtros.cliente))) &&
                     (!filtros.direccion || normalizarTexto(p.direccion).includes(normalizarTexto(filtros.direccion))) &&
@@ -607,8 +433,7 @@ if (page === 'listado') {
     
     actualizarTablaPedidos(obtenerPedidos());
 
-    //FILTRO DE LISTADO DE NEGOCIOS
-    
+    //FILTRO DE LISTADO DE NEGOCIOS  
     const formularioFiltroNegocios = document.getElementById('form-filtro-negocios');
 
     function actualizarTablaNegocios(negociosFiltrados) {
@@ -638,7 +463,6 @@ if (page === 'listado') {
     actualizarTablaNegocios(obtenerNegocios());
 
     //FILTRO DE LISTADO DE CLIENTES
-
     const formularioFiltroClientes = document.getElementById('form-filtro-clientes');
 
     function actualizarTablaClientes(clientesFiltrados) {
@@ -673,7 +497,6 @@ if (page === 'listado') {
     actualizarTablaClientes(obtenerClientes());
 
     //FILTRO DE LISTADO DE CONDUCTORES
-
     const formularioFiltroConductores = document.getElementById('form-filtro-conductores');
 
     function actualizarTablaConductores(conductoresFiltrados) {
@@ -705,5 +528,6 @@ if (page === 'listado') {
     })
 
     actualizarTablaConductores(obtenerConductores());
+
 
 }

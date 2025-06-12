@@ -59,7 +59,7 @@ body .dashboard .card {
   color: #ffffff;
   padding: 1rem 2rem;
   text-align: center;
-  min-width: 150px;
+  min-width: 250px;
   font-weight: bold;
 }
 body main {
@@ -131,6 +131,42 @@ body .listado .selector .btn-tab.activo, body .ingreso .selector .btn-tab.activo
   color: white;
 }
 body .listado .contenido-tab.oculto, body .ingreso .contenido-tab.oculto {
+  display: none;
+}
+body .modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+body .modal .modal-contenido {
+  background: white;
+  padding: 50px;
+  border-radius: 8px;
+  text-align: center;
+}
+body .modal .modal-contenido .btn {
+  background-color: transparent;
+  border-radius: 8px;
+  font-size: 1rem;
+  padding: 0.6rem 1.2rem;
+  border: 2px solid #01579B;
+  color: #01579B;
+  font-weight: 600;
+  transition: background-color 0.4s ease;
+}
+body .modal .modal-contenido .btn:hover {
+  background-color: #01579B;
+  color: #ffffff;
+  cursor: pointer;
+}
+body .oculto {
   display: none;
 }
 

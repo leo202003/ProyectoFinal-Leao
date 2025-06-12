@@ -20,10 +20,18 @@
 
     <main>
         <section class="dashboard">
-            <div class="card">Total envíos:</div>
-            <div class="card">Envíos pendientes:</div>
-            <div class="card">Envíos en tránsito:</div>
-            <div class="card">Envíos en entregados:</div>
+            <div class="card">
+                <p>Total envíos: <span class="contador-total"></span></p>
+            </div>
+            <div class="card">
+                <p>Envíos pendientes: <span class="contador-pendientes"></span></p>
+            </div>
+            <div class="card">
+                <p>Envíos en tránsito: <span class="contador-transito"></span></p>
+            </div>
+            <div class="card">
+                <p>Envíos en entregados: <span class="contador-entregado"></span></p>
+            </div>
         </section>
         
         <section class="acciones">
@@ -49,6 +57,20 @@
                     
                 </tbody>
             </table>
+        </section>
+
+        <section>
+            <div id="modal-conductor" class="modal oculto">
+                <div class="modal-contenido">
+                    <h2>Asignar conductor</h2>
+                    <select id="select-conductor">
+            
+                    </select>
+                    <br><br>
+                    <button id="btn-asignar" class="btn">Asignar</button>
+                    <button id="btn-cancelar" class="btn">Cancelar</button>
+                </div>
+            </div>
         </section>
     </main>
     <script src="main.js" defer></script>

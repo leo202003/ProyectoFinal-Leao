@@ -28,25 +28,27 @@
             </div>
 
             <div class="contenido-tab" id="pedidos">
-                <form id="form-ingreso-pedido" autocomplete="off">
-                    <label>Negocio:
-                        <input type="text" id="Negocio" name="Negocio" required>
-                    </label>
-                    <label>Cliente:
-                        <input type="text" id="Cliente" name="Cliente" required>
-                    </label>
-                    <label>Direccion:
-                        <input type="text" id="Direccion" name="Direccion" required>
-                    </label>
-                    <label>Telefono:
-                        <input type="text" id="Telefono" name="Telefono" required>
-                    </label>
-                    <button type="submit">Ingresar Pedido</button>
-                </form>
+                <div class="form-ingreso-container">
+                    <form id="form-ingreso-pedido" class="form-ingreso" autocomplete="off">
+                        <label>Negocio:
+                            <input type="text" id="Negocio" name="Negocio" required>
+                        </label>
+                        <label>Cliente:
+                            <input type="text" id="Cliente" name="Cliente" required>
+                        </label>
+                        <label>Direccion:
+                            <input type="text" id="Direccion" name="Direccion" required>
+                        </label>
+                        <label>Telefono:
+                            <input type="text" id="Telefono" name="Telefono" required>
+                        </label>
+                        <button type="submit">Ingresar Pedido</button>
+                    </form>
+                </div>
             </div>
 
-            <div class="contenido-tab oculto" id="negocios">
-                <form id="form-ingreso-negocio" autocomplete="off">
+            <div class="contenido-tab oculto"  id="negocios">
+                <form id="form-ingreso-negocio" class="form-ingreso" autocomplete="off">
                     <label>Nombre:
                         <input type="text" id="nombre" name="nombre" required>
                     </label>
@@ -59,7 +61,7 @@
             </div>
 
             <div class="contenido-tab oculto" id="clientes">
-                <form id="form-ingreso-cliente" autocomplete="off">
+                <form id="form-ingreso-cliente" class="form-ingreso" autocomplete="off">
                     <label>Nombre:
                         <input type="text" id="nombreCliente" name="nombreCliente" required>
                     </label>
@@ -73,8 +75,8 @@
                 </form>
             </div>
 
-            <div class="contenido-tab oculto" id="conductores" autocomplete="off">
-                <form id="form-ingreso-conductores">
+            <div class="contenido-tab oculto" id="conductores">
+                <form id="form-ingreso-conductores" class="form-ingreso"  autocomplete="off">
                     <label>Nombre:
                         <input type="text" id="nombreConductor" name="nombreConductor" required>
                     </label>

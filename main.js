@@ -1,6 +1,5 @@
 const page = document.body.dataset.page;
 
-
 const tabs = document.querySelectorAll('.btn-tab');
 const contenidos = document.querySelectorAll('.contenido-tab');
 

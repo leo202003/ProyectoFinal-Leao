@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../css/styles.css">
     <title>EnviosUY</title>
 </head>
 <body data-page="listado">
@@ -27,26 +27,26 @@
                 <button class="btn-tab" data-tab="conductores">Conductores</button>
             </div>
 
-            <div class="contenido-tab" id="pedidos">
-                <form id="form-filtro-pedido" autocomplete="off">
+            <div class="contenido-tab lista" id="pedidos">
+                <form class="form-filtro" id="form-filtro-pedido" autocomplete="off">
                     <label>ID:
                         <input type="text" id="id" name="id">
-                    </label><br><br>
+                    </label>
                     <label>Negocio:
                         <input type="text" id="negocio" name="negocio">
-                    </label><br><br>
+                    </label>
                     <label>Cliente:
                         <input type="text" id="cliente" name="cliente">
-                    </label><br><br>
+                    </label>
                     <label>Direccion:
                         <input type="text" id="direccion" name="direccion">
-                    </label><br><br>
+                    </label>
                     <label>Telefono:
                         <input type="text" id="telefono" name="telefono">
-                    </label><br><br>
+                    </label>
                     <label>Conductor:
                         <input type="text" id="conductor" name="conductor">
-                    </label><br><br>
+                    </label>
                     <button type="submit">Buscar</button>
                 </form>
 
@@ -68,11 +68,11 @@
             </table>
             </div>
 
-            <div class="contenido-tab oculto" id="negocios">
-                <form id="form-filtro-negocios" autocomplete="off">
+            <div class="contenido-tab lista oculto" id="negocios">
+                <form class="form-filtro" id="form-filtro-negocios" autocomplete="off">
                     <label>Nombre:
                         <input type="text" id="nomnegocio" name="nomnegocio">
-                    </label><br><br>
+                    </label>
                     <button type="submit">Buscar</button>
                 </form>
 
@@ -89,17 +89,17 @@
             </table>
             </div>
 
-            <div class="contenido-tab oculto" id="clientes">
-                <form id="form-filtro-clientes" autocomplete="off">
+            <div class="contenido-tab lista oculto" id="clientes">
+                <form class="form-filtro" id="form-filtro-clientes" autocomplete="off">
                     <label>Nombre:
                         <input type="text" id="nomcliente" name="nomcliente">
-                    </label><br><br>
+                    </label>
                     <label>Direccion:
                         <input type="text" id="direcliente" name="direcliente">
-                    </label><br><br>
+                    </label>
                     <label>Telefono:
                         <input type="text" id="telcliente" name="telcliente">
-                    </label><br><br>
+                    </label>
                     <button type="submit">Buscar</button>
                 </form>
 
@@ -117,14 +117,14 @@
             </table>
             </div>
 
-            <div class="contenido-tab oculto" id="conductores">
-                <form id="form-filtro-conductores" autocomplete="off">
+            <div class="contenido-tab lista oculto" id="conductores">
+                <form class="form-filtro" id="form-filtro-conductores" autocomplete="off">
                     <label>Nombre:
                         <input type="text" id="nomconductor" name="nomconductor">
-                    </label><br><br>
+                    </label>
                     <label>Telefono:
                         <input type="text" id="telconductor" name="telconductor">
-                    </label><br><br>
+                    </label>
                     <button type="submit">Buscar</button>
                 </form>
 

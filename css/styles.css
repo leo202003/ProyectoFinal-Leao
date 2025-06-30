@@ -132,13 +132,16 @@ body .listado .selector .btn-tab.activo, body .ingreso .selector .btn-tab.activo
   background-color: #01579B;
   color: white;
 }
+body .listado .ingreso-container, body .ingreso .ingreso-container {
+  margin-top: 100px;
+}
 body .listado .contenido-tab .form-ingreso, body .ingreso .contenido-tab .form-ingreso {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   max-width: 1000px;
   gap: 1.5rem;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 3rem;
   background-color: white;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
@@ -264,6 +267,27 @@ body .modal .modal-contenido .btn:hover {
 }
 body .oculto {
   display: none;
+}
+
+#select-conductor, #select-estado {
+  width: 60%;
+  max-width: 400px;
+  padding: 0.75rem 1rem;
+  margin-top: 1rem;
+  font-size: 1rem;
+  border: 2px solid #cac9c9;
+  border-radius: 8px;
+  background-color: #fff;
+  color: #333;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+#select-conductor:focus, #select-estado:focus {
+  outline: none;
+  border-color: #01579B;
+  box-shadow: 0 0 0 3px rgba(1, 87, 155, 0.2);
+}
+#select-conductor option, #select-estado option {
+  padding: 0.3rem;
 }
 
 /*# sourceMappingURL=styles.css.map */

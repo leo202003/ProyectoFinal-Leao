@@ -37,6 +37,7 @@
         <section class="acciones">
             <a href="pages/ingreso.html"><button class="btn">Ingresar Pedido</button></a>
             <button class="btn">Asignar Conductor</button>
+            <button class="btn">Cambiar Estado</button>
         </section>
 
         <section>
@@ -69,6 +70,23 @@
                     <br><br>
                     <button id="btn-asignar" class="btn">Asignar</button>
                     <button id="btn-cancelar" class="btn">Cancelar</button>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div id="modal-estado" class="modal oculto">
+                <div class="modal-contenido">
+                    <h2>Cambiar Estado</h2>
+                    <select id="select-estado">
+                        <option value="Pendiente">Pendiente</option>
+                        <option value="En tránsito">En tránsito</option>
+                        <option value="Entregado">Entregado</option>
+                        <option value="Cancelado">Cancelado</option>
+                    </select>
+                    <br/><br/>
+                    <button id="btn-confirmar-estado" class="btn">Confirmar</button>
+                    <button id="btn-cancelar-estado" class="btn">Cancelar</button>
                 </div>
             </div>
         </section>

@@ -216,7 +216,7 @@ if (page === 'index') {
         //asigno el conductorSeleccionado a los pedidos seleccionados
         pedidos.forEach (p => {
             //cambio el estado de los pedidos
-            if (seleccionados.includes(p.id)) {
+            if (seleccionados.includes(p.id) && (seleccionados.estado === Estado[0] || seleccionados.estado === Estado[1])) {
                 p.conductor = conductorSeleccionado;
                 p.estado = Estado[1];
             }  
@@ -244,10 +244,56 @@ if (page === 'index') {
         select.appendChild(option);
     });
 
+    //CAMBIO DE ESTADO DE LOS PEDIDOS
+    document.querySelector('.acciones .btn:nth-child(3)').addEventListener('click', () => {
+        //Guardo los pedidos seleccionados
+        const checkboxes = document.querySelectorAll('.checkbox-pedido:checked');
+        //Si no seleccione ninguno no me deja cambiar el estado
+        if (checkboxes.length === 0) {
+            alert('⚠️ Seleccioná al menos un pedido.');
+            return;
+        }
+        //Muestro el modal
+        document.getElementById('modal-estado').classList.remove('oculto');
+        //guardo el id de los pedidos seleccionados en un array
+        const seleccionados = Array.from(checkboxes).map(cb => parseInt(cb.dataset.id));
+        //guardo los pedidos en el local storage
+        localStorage.setItem('pedidosSeleccionados', JSON.stringify(seleccionados));
+    })
 
+    document.querySelector('#btn-confirmar-estado').addEventListener('click', () => {
+        const nuevoEstado = document.getElementById('select-estado').value;
+
+        if (!nuevoEstado) {
+            alert("⚠️ Seleccioná un estado.");
+            return;
+        }
+
+        const pedidos = obtenerPedidos();
+        const seleccionados = JSON.parse(localStorage.getItem('pedidosSeleccionados') || '[]');
+        pedidos.forEach(p => {
+            if (seleccionados.includes(p.id)) {
+                p.estado = nuevoEstado;
+                if (p.estado === "Pendiente" || p.estado === "Cancelado") {
+                    p.conductor = undefined;
+                }
+                if(p.estado === 'Entregado' && !(p.estado === Estado[1])){
+                    p.conductor = "SistemaEnviosUY"
+                }
+            }
+        });
+        guardarPedidos(pedidos);
+        localStorage.removeItem('pedidosSeleccionados');
+        document.getElementById('modal-estado').classList.add('oculto');
+        location.reload();
+    });
+
+    document.getElementById('btn-cancelar-estado').addEventListener('click', () => {
+        document.getElementById('modal-estado').classList.add('oculto');
+        localStorage.removeItem('pedidosSeleccionados');
+    });
 
 }
-
 
 //INGRESAR PEDIDOS POR FORMULARIO
 

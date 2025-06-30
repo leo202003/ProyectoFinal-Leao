@@ -216,7 +216,7 @@ if (page === 'index') {
         //asigno el conductorSeleccionado a los pedidos seleccionados
         pedidos.forEach (p => {
             //cambio el estado de los pedidos
-            if (seleccionados.includes(p.id) && (seleccionados.estado === Estado[0] || seleccionados.estado === Estado[1])) {
+            if (seleccionados.includes(p.id)) {
                 p.conductor = conductorSeleccionado;
                 p.estado = Estado[1];
             }  
@@ -274,11 +274,15 @@ if (page === 'index') {
         pedidos.forEach(p => {
             if (seleccionados.includes(p.id)) {
                 p.estado = nuevoEstado;
-                if (p.estado === "Pendiente" || p.estado === "Cancelado") {
-                    p.conductor = undefined;
+                //Si el conductor no finaliza el pedido se marca como entregado desde el sitema
+                if (nuevoEstado === "Entregado") {
+                    if (!p.conductor) {
+                        p.conductor = "SistemaEnviosUY";
+                    }
                 }
-                if(p.estado === 'Entregado' && !(p.estado === Estado[1])){
-                    p.conductor = "SistemaEnviosUY"
+                //Si se cambia el estado a pendiente o cancelado, el conductor queda indefinido
+                if (nuevoEstado === "Pendiente" || nuevoEstado === "Cancelado") {
+                    p.conductor = undefined;
                 }
             }
         });

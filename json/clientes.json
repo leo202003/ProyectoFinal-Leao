@@ -1,0 +1,12 @@
+[
+  { "nombre": "Lucas Martínez", "direccion": "Av. Brasil 1234, Montevideo", "telefono": "099123456" },
+  { "nombre": "Sofía Pérez", "direccion": "Calle 18 de Julio 567", "telefono": "098765432" },
+  { "nombre": "Mateo González", "direccion": "Bvar. Artigas 4321", "telefono": "091234567" },
+  { "nombre": "Valentina López", "direccion": "Calle Colonia 876", "telefono": "094567890" },
+  { "nombre": "Martín Rodríguez", "direccion": "Rbla. Pocitos 2345", "telefono": "092345678" },
+  { "nombre": "Camila Fernández", "direccion": "Av. Rivera 3456", "telefono": "099876543" },
+  { "nombre": "Ignacio Díaz", "direccion": "Calle Uruguay 567", "telefono": "097654321" },
+  { "nombre": "Lucía Torres", "direccion": "Av. Agraciada 678", "telefono": "093456789" },
+  { "nombre": "Agustín Silva", "direccion": "Calle Mercedes 789", "telefono": "096543210" },
+  { "nombre": "Isabela Castro", "direccion": "Bvar. España 1011", "telefono": "095432109" }
+]

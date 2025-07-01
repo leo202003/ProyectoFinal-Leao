@@ -13,6 +13,125 @@ tabs.forEach(btn => {
     });
 });
 
+//API RANDOM USER
+const URL = 'https://randomuser.me/api/?results=10&nat=uy';
+fetch(URL)
+    .then((response) => response.json())
+    .then((data) => {
+        const usuarios = data.results;
+
+        const clientesAPI = usuarios.slice(0, 5);
+        const conductoresAPI = usuarios.slice(5,10);
+
+        const clientesActuales = obtenerClientes();
+        const conductoresActuales = obtenerConductores();
+
+        const nuevosClientes = clientesAPI
+        .filter(c => !clientesActuales.some(cli => normalizarTexto(cli.nombre) === normalizarTexto(`${c.name.first} ${c.name.last}`)))
+        .map(c => new Cliente(
+            `${c.name.first} ${c.name.last}`,
+            `${c.location.street.name} ${c.location.street.number}, ${c.location.city}`,
+            c.phone
+        ))
+
+        const nuevosConductores = conductoresAPI
+        .filter(c => !conductoresActuales.some(con => normalizarTexto(con.nombre) === normalizarTexto(`${c.name.first} ${c.name.last}`)))
+        .map(c => new Conductor(
+            `${c.name.first} ${c.name.last}`,
+            c.phone
+        ))
+
+        guardarClientes([...clientesActuales, ...nuevosClientes]);
+        guardarConductores([...conductoresActuales, ...nuevosConductores]);
+    })
+    .catch((error) => {
+        console.error('Error al obtener usuarios:', error);
+    });
+
+const URL1 = '/json/negocios.json'
+fetch(URL1)
+    .then((response) => response.json())
+    .then((data) => {
+        const negociosActuales = obtenerNegocios();
+        
+        const nuevosNegocios = data
+            .filter(n => !negociosActuales.some(neg => normalizarTexto(neg.nombre) === normalizarTexto(n.nombre)))
+            .map((n, i) => new Negocio(
+                negociosActuales.length + i + 1,
+                n.nombre,
+                n.descripcion
+            ));
+
+        guardarNegocios([...negociosActuales, ...nuevosNegocios]);
+    })  
+    .catch(error => {
+        console.error('Error al cargar negocios:', error);
+    });  
+
+const URL2 = '/json/conductores.json';
+fetch(URL2)
+    .then((response) => response.json())
+    .then((data) => {
+        const conductoresActuales = obtenerConductores();
+
+        const nuevosConductores = data
+            .filter(c => !conductoresActuales.some(con => normalizarTexto(con.nombre) === normalizarTexto(c.nombre)))
+            .map(c => new Conductor(
+                c.nombre,
+                c.telefono
+            ))
+        guardarConductores([...conductoresActuales, ...nuevosConductores]);
+    })
+    .catch(error => {
+        console.error('Error al cargar conductores:', error);
+    }); 
+
+const URL3 = '/json/clientes.json'
+fetch(URL3)
+    .then((response) => response.json())
+    .then((data) => {
+        const clientesActuales = obtenerClientes();
+
+        const nuevosClientes = data
+            .filter(c => !clientesActuales.some(cli => normalizarTexto(cli.nombre) === normalizarTexto(c.nombre)))
+            .map(c => new Cliente(
+                c.nombre,
+                c.direccion,
+                c.telefono
+            ))
+        guardarClientes([...clientesActuales, ...nuevosClientes]);
+    })
+    .catch(error => {
+        console.error('Error al cargar clientes:', error);
+    }); 
+const URL4 = '/json/pedidos.json';
+fetch(URL4)
+    .then((response) => response.json())
+    .then((data) => {
+        const pedidosActuales = obtenerPedidos();
+
+        const nuevosPedidos = data
+            .filter(p => !pedidosActuales.some(pe =>
+                normalizarTexto(pe.cliente) === normalizarTexto(p.cliente) &&
+                normalizarTexto(pe.negocio) === normalizarTexto(p.negocio) &&
+                pe.estado === p.estado
+            ))
+            .map((p, i) => new Pedido(
+                pedidosActuales.length + i + 1,
+                p.negocio,
+                p.cliente,
+                p.direccion,
+                p.telefono,
+                p.estado,
+                p.conductor
+            ))
+            guardarPedidos([...pedidosActuales, ...nuevosPedidos]);
+    })
+    .catch(error => {
+        console.error('Error al cargar pedidos:', error);
+    }); 
+    
+
 //CLASES
 class Cliente {
     constructor(nombre, direccion, telefono) {
@@ -107,7 +226,7 @@ function normalizarTexto(texto) {
     .replace(/[\u0300-\u036f]/g, ''); 
 }
 
-
+//INDEX
 if (page === 'index') {
 
     function actualizarContadorPedidosTotales() {

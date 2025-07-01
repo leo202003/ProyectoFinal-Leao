@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "nombre": "Starbucks",
+    "descripcion": "Cadena internacional de cafeterías que ofrece café, té, repostería y snacks."
+  },
+  {
+    "id": 2,
+    "nombre": "McDonald's",
+    "descripcion": "Restaurante de comida rápida famoso por sus hamburguesas, papas fritas y menús infantiles."
+  },
+  {
+    "id": 3,
+    "nombre": "Amazon",
+    "descripcion": "Plataforma global de comercio electrónico con una amplia variedad de productos."
+  },
+  {
+    "id": 4,
+    "nombre": "Zara",
+    "descripcion": "Tienda de ropa y accesorios de moda para todas las edades, parte del grupo Inditex."
+  },
+  {
+    "id": 5,
+    "nombre": "Apple",
+    "descripcion": "Empresa de tecnología conocida por productos como el iPhone, MacBook y servicios digitales."
+  },
+  {
+    "id": 6,
+    "nombre": "Spotify",
+    "descripcion": "Servicio de streaming de música que ofrece acceso a millones de canciones y podcasts."
+  },
+  {
+    "id": 7,
+    "nombre": "Uber",
+    "descripcion": "Plataforma de movilidad que conecta conductores y pasajeros para viajes urbanos."
+  },
+  {
+    "id": 8,
+    "nombre": "Netflix",
+    "descripcion": "Servicio de streaming de películas, series y documentales a nivel mundial."
+  },
+  {
+    "id": 9,
+    "nombre": "Mercado Libre",
+    "descripcion": "Plataforma de e-commerce líder en América Latina para comprar y vender productos."
+  },
+  {
+    "id": 10,
+    "nombre": "Nike",
+    "descripcion": "Marca global de ropa deportiva, calzado y accesorios de alto rendimiento."
+  }
+]

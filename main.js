@@ -14,7 +14,7 @@ tabs.forEach(btn => {
 });
 
 //API RANDOM USER
-const URL = 'https://randomuser.me/api/?results=10&nat=uy';
+const URL = 'https://randomuser.me/api/?results=10&nat=uy,ar,mx,cl,co,es,br,pe';
 fetch(URL)
     .then((response) => response.json())
     .then((data) => {

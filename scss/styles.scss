@@ -22,29 +22,46 @@ body {
         width: 100%;
         display: flex;
         justify-content: space-between;
-        padding: 0.45rem 2rem 0.45rem 1.27rem;
-        
+        align-items: center;
+        padding: 0.5rem 2rem;
         background-color: $color-primary-navbar;
         color: $color-text;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         .logo {
-            font-size: 2.2rem;
-            font-weight: bold;
-            padding: 5px;
-            color: #FFD100;
+            a {
+                font-size: 2.4rem;
+                font-weight: 700;
+                color: #FFD100;
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                padding: 5px;
+                text-decoration: none;
+                span:first-child {
+                    font-family: 'Orbitron', sans-serif;
+                    display: inline-flex;
+                    align-items: center;
+                    color: #FFD100;
+
+                    span {
+                        font-family: 'Orbitron', sans-serif;
+                        color: white;
+                    }
+                }
+            }
         }
         .menu {
             list-style: none;
             display: flex;
             gap: 25px;
             align-items: center;
-            justify-content: flex-end;
             font-size: 1.3rem;
             a {
                 color: $color-text;
                 text-decoration: none;
                 padding: 0.3rem 0.6rem;
                 border-radius: 4px;
-                font-weight: 500;
+                font-weight: 600;
                 transition: background-color 0.3s ease;
                 &:hover {
                     background-color: #0288D1; // cambia el color al pasar el mouse
@@ -146,7 +163,7 @@ body {
         }
 
         .ingreso-container {
-            margin-top: 100px;
+            margin-top: 140px;
         }
 
         .contenido-tab {
@@ -299,7 +316,7 @@ body {
 }
 
 #select-conductor, #select-estado {
-    width: 60%;
+    width: 65%;
     max-width: 400px;
     padding: 0.75rem 1rem;
     margin-top: 1rem;

@@ -48,7 +48,7 @@ fetch(URL)
         console.error('Error al obtener usuarios:', error);
     });
 
-const URL1 = '/json/negocios.json'
+const URL1 = 'json/negocios.json'
 fetch(URL1)
     .then((response) => response.json())
     .then((data) => {
@@ -68,7 +68,7 @@ fetch(URL1)
         console.error('Error al cargar negocios:', error);
     });  
 
-const URL2 = '/json/conductores.json';
+const URL2 = 'json/conductores.json';
 fetch(URL2)
     .then((response) => response.json())
     .then((data) => {
@@ -86,7 +86,7 @@ fetch(URL2)
         console.error('Error al cargar conductores:', error);
     }); 
 
-const URL3 = '/json/clientes.json'
+const URL3 = 'json/clientes.json'
 fetch(URL3)
     .then((response) => response.json())
     .then((data) => {
@@ -104,7 +104,7 @@ fetch(URL3)
     .catch(error => {
         console.error('Error al cargar clientes:', error);
     }); 
-const URL4 = '/json/pedidos.json';
+const URL4 = 'json/pedidos.json';
 fetch(URL4)
     .then((response) => response.json())
     .then((data) => {

@@ -283,9 +283,8 @@ body .modal .modal-contenido .btn:hover {
 body .oculto {
   display: none;
 }
-
-#select-conductor, #select-estado {
-  width: 65%;
+body #select-conductor, body #select-estado {
+  width: 75%;
   max-width: 400px;
   padding: 0.75rem 1rem;
   margin-top: 1rem;
@@ -296,12 +295,12 @@ body .oculto {
   color: #333;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
-#select-conductor:focus, #select-estado:focus {
+body #select-conductor:focus, body #select-estado:focus {
   outline: none;
   border-color: #01579B;
   box-shadow: 0 0 0 3px rgba(1, 87, 155, 0.2);
 }
-#select-conductor option, #select-estado option {
+body #select-conductor option, body #select-estado option {
   padding: 0.3rem;
 }
 

@@ -307,7 +307,13 @@ if (page === 'index') {
         const checkboxes = document.querySelectorAll('.checkbox-pedido:checked');
         //si no seleccione ninguno no me deja asignar
         if (checkboxes.length === 0) {
-            alert('⚠️ Seleccioná al menos un pedido.');
+            Swal.fire({
+                icon: 'warning',
+                title: 'Atención',
+                text: 'Selecciona al menos un pedido.',
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#f5a623' 
+            });
             return;
         }
         //muestro el modal
@@ -324,7 +330,13 @@ if (page === 'index') {
         const conductorSeleccionado = document.getElementById('select-conductor').value;
         //Si no selecciono no me deja continuar
         if (!conductorSeleccionado) {
-            alert("⚠️ Seleccioná un conductor.");
+            Swal.fire({
+                icon: 'warning',
+                title: 'Atención',
+                text: 'Selecciona al menos un Conductor.',
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#f5a623' 
+            });
             return;
         }
 
@@ -344,9 +356,38 @@ if (page === 'index') {
         //borro los pedidos seleccionados del localstorage, oculto el modal y recargo la pagina
         localStorage.removeItem('pedidosSeleccionados');
         document.getElementById('modal-conductor').classList.add('oculto');
+        sessionStorage.setItem('mostrarNotificacion', 'pedidoAsignado');
         location.reload();
     })
 
+    document.addEventListener('DOMContentLoaded', () => {
+        if (sessionStorage.getItem('mostrarNotificacion') === 'pedidoAsignado') {
+            Toastify({
+            text: "✅ Pedido asignado con éxito.",
+            duration: 3000,
+            close: true,
+            gravity: "bottom",
+            position: "right",
+            backgroundColor: "#28a745",
+            stopOnFocus: true
+            }).showToast();
+
+            sessionStorage.removeItem('mostrarNotificacion');
+
+        } else  if (sessionStorage.getItem('mostrarNotificacion') === 'estadoCambiado') {
+            Toastify({
+            text: "✅ Estado cambiado con éxito.",
+            duration: 3000,
+            close: true,
+            gravity: "bottom",
+            position: "right",
+            backgroundColor: "#28a745",
+            stopOnFocus: true
+            }).showToast();
+
+            sessionStorage.removeItem('mostrarNotificacion');
+        }
+    });
     //CANCELAR LA ASIGNACION DESDE EL MODAL
     document.getElementById('btn-cancelar').addEventListener('click', () => {
         document.getElementById('modal-conductor').classList.add('oculto');
@@ -369,7 +410,13 @@ if (page === 'index') {
         const checkboxes = document.querySelectorAll('.checkbox-pedido:checked');
         //Si no seleccione ninguno no me deja cambiar el estado
         if (checkboxes.length === 0) {
-            alert('⚠️ Seleccioná al menos un pedido.');
+            Swal.fire({
+                icon: 'warning',
+                title: 'Atención',
+                text: 'Selecciona al menos un pedido.',
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#f5a623' 
+            });
             return;
         }
         //Muestro el modal
@@ -384,7 +431,18 @@ if (page === 'index') {
         const nuevoEstado = document.getElementById('select-estado').value;
 
         if (!nuevoEstado) {
-            alert("⚠️ Seleccioná un estado.");
+            Swal.fire({
+                toast: true,
+                position: 'bottom-end',
+                icon: 'success',
+                title: 'Seleccione un estado',
+                showConfirmButton: false,
+                timer: 2500,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+            });
             return;
         }
 
@@ -408,6 +466,7 @@ if (page === 'index') {
         guardarPedidos(pedidos);
         localStorage.removeItem('pedidosSeleccionados');
         document.getElementById('modal-estado').classList.add('oculto');
+        sessionStorage.setItem('mostrarNotificacion', 'estadoCambiado');
         location.reload();
     });
 
@@ -461,16 +520,44 @@ if (page === 'ingreso') {
             pedidos.push(nuevoPedido);
             guardarPedidos(pedidos);
             //Se redirige al inicio al terminar de ingresar el pedido
-            alert("✅ Pedido ingresado con éxito. Redirigiendo...");
-            setTimeout(() => {
+            let timerInterval;
+            Swal.fire({
+                icon: 'success',
+                title: "Pedido Ingresado Correctamente!",
+                html: "Redirigiendo en <b></b> millisegundos.",
+                timer: 2000,
+                timerProgressBar: true,
+                didOpen: () => {
+                    Swal.showLoading();
+                    const timer = Swal.getPopup().querySelector("b");
+                    timerInterval = setInterval(() => {
+                    timer.textContent = `${Swal.getTimerLeft()}`;
+                    }, 100);
+                },
+                willClose: () => {
+                    clearInterval(timerInterval);
+                }
+                }).then((result) => {
+                if (result.dismiss === Swal.DismissReason.timer) {
                     window.location.href = '../index.html';
-            }, 500);
+                }
+            });
         //Si no existe el negocio le doy la opcion de ingresarlo
         } else {
-            let ingresar = confirm("⚠️ Negocio no ingresado en sistema\n ¿Desea ingresarlo?");
-            if (ingresar) {
-                document.querySelector('[data-tab="negocios"]').click();
-            }
+            Swal.fire({
+                icon: 'warning',
+                title: '⚠️ Negocio no ingresado en el sistema',
+                text: '¿Desea ingresarlo?',
+                showCancelButton: true,
+                confirmButtonText: 'Sí, ingresarlo',
+                cancelButtonText: 'Cancelar',
+                confirmButtonColor: '#28a745',
+                cancelButtonColor: '#d33'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    document.querySelector('[data-tab="negocios"]').click();
+                }
+            });
         }
         formularioPedido.reset();
     })
@@ -493,9 +580,31 @@ if (page === 'ingreso') {
             )
             negocios.push(nuevoNegocio);
             guardarNegocios(negocios);
-            alert("✅ Negocio ingresado con éxito.");
+            Swal.fire({
+                toast: true,
+                position: 'bottom-end',
+                icon: 'success',
+                title: '✅ Negocio ingresado con éxito.',
+                showConfirmButton: false,
+                timer: 2500,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
         } else {
-            alert("⚠️ Negocio ya ingresado en el sistema");
+            Swal.fire({
+                toast: true,
+                position: 'bottom-end',
+                icon: 'warning',
+                title: '⚠️ Negocio ya ingresado en el sistema.',
+                showConfirmButton: false,
+                timer: 2500,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
         }
         formularioNegocios.reset();
     })
@@ -517,9 +626,31 @@ if (page === 'ingreso') {
             )
             clientes.push(nuevoCliente);
             guardarClientes(clientes);
-            alert("✅ Cliente ingresado con éxito.");
+            Swal.fire({
+                toast: true,
+                position: 'bottom-end',
+                icon: 'success',
+                title: '✅ Cliente ingresado con éxito.',
+                showConfirmButton: false,
+                timer: 2500,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
         } else {
-            alert("⚠️ Cliente ya ingresado en el sistema");
+            Swal.fire({
+                toast: true,
+                position: 'bottom-end',
+                icon: 'warning',
+                title: '⚠️ Cliente ya ingresado en el sistema.',
+                showConfirmButton: false,
+                timer: 2500,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
         }
         formularioClientes.reset();
     })
@@ -540,9 +671,43 @@ if (page === 'ingreso') {
             )
             conductores.push(nuevoConductores);
             guardarConductores(conductores);
-            alert("✅ Conductor ingresado con éxito.");
+            Swal.fire({
+                toast: true,
+                position: 'bottom-end',
+                icon: 'success',
+                title: '✅ Conductor ingresado con éxito.',
+                showConfirmButton: false,
+                timer: 2500,
+                showClass: {
+                    popup: 'swal2-show' 
+                },
+                hideClass: {
+                    popup: 'swal2-hide' 
+                },
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
         } else {
-            alert("⚠️ Conductor ya ingresado en el sistema");
+            Swal.fire({
+                toast: true,
+                position: 'bottom-end',
+                icon: 'warning',
+                title: '⚠️ Conductor ya ingresado en el sistema.',
+                showConfirmButton: false,
+                timer: 2500,
+                showClass: {
+                    popup: 'swal2-show' 
+                },
+                hideClass: {
+                    popup: 'swal2-hide' 
+                },
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
         }
         formularioConductores.reset();
     })
@@ -585,7 +750,8 @@ if (page === 'listado') {
         const direccion = datos.get('direccion');
         const telefono = datos.get('telefono');
         const conductor = datos.get('conductor');
-        const filtros = {id, negocio, cliente, direccion, telefono, conductor};
+        const estado = datos.get('estado');
+        const filtros = {id, negocio, cliente, direccion, telefono, conductor, estado};
         const pedidos = obtenerPedidos();
         //verifico si existen pedidos que coincidan con id, negocio, etc
         const pedidosFiltrados = pedidos.filter(p => {
@@ -594,6 +760,7 @@ if (page === 'listado') {
                     (!filtros.cliente || normalizarTexto(p.cliente).includes(normalizarTexto(filtros.cliente))) &&
                     (!filtros.direccion || normalizarTexto(p.direccion).includes(normalizarTexto(filtros.direccion))) &&
                     (!filtros.telefono || normalizarTexto(p.telefono).includes(normalizarTexto(filtros.telefono))) &&
+                    (!filtros.estado || normalizarTexto(p.estado).includes(normalizarTexto(filtros.estado))) &&
                     (!filtros.conductor || (p.conductor && normalizarTexto(p.conductor).includes(normalizarTexto(filtros.conductor))))) 
         })
         actualizarTablaPedidos(pedidosFiltrados);

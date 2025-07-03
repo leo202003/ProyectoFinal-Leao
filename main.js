@@ -15,6 +15,13 @@ tabs.forEach(btn => {
 
 //API RANDOM USER
 const URL = 'https://randomuser.me/api/?results=10&nat=uy,ar,mx,cl,co,es,br,pe';
+const BASE_URL = 'https://leo202003.github.io/ProyectoJavaScriptCoder/json/';
+
+const URL1 = BASE_URL + 'negocios.json';
+const URL2 = BASE_URL + 'conductores.json';
+const URL3 = BASE_URL + 'clientes.json';
+const URL4 = BASE_URL + 'pedidos.json';
+
 
 function usuariosRandom(URL) {
     fetch(URL)
@@ -58,9 +65,6 @@ function usuariosRandom(URL) {
 
 usuariosRandom(URL);
 
-
-const URL1 = '../json/negocios.json'
-
 fetch(URL1)
     .then((response) => response.json())
     .then((data) => {
@@ -80,7 +84,6 @@ fetch(URL1)
         console.error('Error al cargar negocios:', error);
     });  
 
-const URL2 = '../json/conductores.json';
 
 fetch(URL2)
     .then((response) => response.json())
@@ -99,8 +102,6 @@ fetch(URL2)
         console.error('Error al cargar conductores:', error);
     }); 
 
-const URL3 = './json/clientes.json'
-
 fetch(URL3)
     .then((response) => response.json())
     .then((data) => {
@@ -118,8 +119,6 @@ fetch(URL3)
     .catch(error => {
         console.error('Error al cargar clientes:', error);
     }); 
-
-const URL4 = 'json/pedidos.json';
 
 fetch(URL4)
     .then((response) => response.json())

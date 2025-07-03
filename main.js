@@ -119,7 +119,7 @@ fetch(URL3)
         console.error('Error al cargar clientes:', error);
     }); 
 
-const URL4 = '../json/pedidos.json';
+const URL4 = 'json/pedidos.json';
 
 fetch(URL4)
     .then((response) => response.json())

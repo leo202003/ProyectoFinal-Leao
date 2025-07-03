@@ -15,9 +15,15 @@ tabs.forEach(btn => {
 
 //API RANDOM USER
 const URL = 'https://randomuser.me/api/?results=10&nat=uy,ar,mx,cl,co,es,br,pe';
-fetch(URL)
+
+function usuariosRandom(URL) {
+    fetch(URL)
     .then((response) => response.json())
     .then((data) => {
+
+        if (localStorage.getItem("usuariosAgregados") === "true") {
+            return;
+        }
         const usuarios = data.results;
 
         const clientesAPI = usuarios.slice(0, 5);
@@ -43,12 +49,18 @@ fetch(URL)
 
         guardarClientes([...clientesActuales, ...nuevosClientes]);
         guardarConductores([...conductoresActuales, ...nuevosConductores]);
+        localStorage.setItem("usuariosAgregados", "true");
     })
     .catch((error) => {
         console.error('Error al obtener usuarios:', error);
     });
+}
+
+usuariosRandom(URL);
+
 
 const URL1 = './json/negocios.json'
+
 fetch(URL1)
     .then((response) => response.json())
     .then((data) => {
@@ -69,6 +81,7 @@ fetch(URL1)
     });  
 
 const URL2 = './json/conductores.json';
+
 fetch(URL2)
     .then((response) => response.json())
     .then((data) => {
@@ -87,6 +100,7 @@ fetch(URL2)
     }); 
 
 const URL3 = './json/clientes.json'
+
 fetch(URL3)
     .then((response) => response.json())
     .then((data) => {
@@ -303,9 +317,9 @@ if (page === 'index') {
     
     //ASIGNAR UN CONDUCTOR A PEDIDOS
     document.querySelector('.acciones .btn:nth-child(2)').addEventListener('click', () => {
-        //guardo los pedidos seleccionados
+        
         const checkboxes = document.querySelectorAll('.checkbox-pedido:checked');
-        //si no seleccione ninguno no me deja asignar
+        
         if (checkboxes.length === 0) {
             Swal.fire({
                 icon: 'warning',
@@ -316,19 +330,15 @@ if (page === 'index') {
             });
             return;
         }
-        //muestro el modal
         document.getElementById('modal-conductor').classList.remove('oculto');
-        //guardo el id de los pedidos seleccionados en un array
         const seleccionados = Array.from(checkboxes).map(cb => parseInt(cb.dataset.id));
-        //guardo los pedidos en el local storage
         localStorage.setItem('pedidosSeleccionados', JSON.stringify(seleccionados));
     })
 
     //ASIGNAR EL CONDUCTOR DESDE EL MODAL
     document.querySelector('#btn-asignar').addEventListener('click', () => {
-        //Guardo un conductor seleccionado
         const conductorSeleccionado = document.getElementById('select-conductor').value;
-        //Si no selecciono no me deja continuar
+
         if (!conductorSeleccionado) {
             Swal.fire({
                 icon: 'warning',
@@ -340,20 +350,15 @@ if (page === 'index') {
             return;
         }
 
-        //pedidos generales
         const pedidos = obtenerPedidos();
-        //pedidos seleccionados con el checkbox
         const seleccionados = JSON.parse(localStorage.getItem('pedidosSeleccionados') || '[]');
-        //asigno el conductorSeleccionado a los pedidos seleccionados
         pedidos.forEach (p => {
-            //cambio el estado de los pedidos
             if (seleccionados.includes(p.id)) {
                 p.conductor = conductorSeleccionado;
                 p.estado = Estado[1];
             }  
         })
         guardarPedidos(pedidos);
-        //borro los pedidos seleccionados del localstorage, oculto el modal y recargo la pagina
         localStorage.removeItem('pedidosSeleccionados');
         document.getElementById('modal-conductor').classList.add('oculto');
         sessionStorage.setItem('mostrarNotificacion', 'pedidoAsignado');
@@ -388,6 +393,7 @@ if (page === 'index') {
             sessionStorage.removeItem('mostrarNotificacion');
         }
     });
+
     //CANCELAR LA ASIGNACION DESDE EL MODAL
     document.getElementById('btn-cancelar').addEventListener('click', () => {
         document.getElementById('modal-conductor').classList.add('oculto');
@@ -406,9 +412,7 @@ if (page === 'index') {
 
     //CAMBIO DE ESTADO DE LOS PEDIDOS
     document.querySelector('.acciones .btn:nth-child(3)').addEventListener('click', () => {
-        //Guardo los pedidos seleccionados
         const checkboxes = document.querySelectorAll('.checkbox-pedido:checked');
-        //Si no seleccione ninguno no me deja cambiar el estado
         if (checkboxes.length === 0) {
             Swal.fire({
                 icon: 'warning',
@@ -419,11 +423,8 @@ if (page === 'index') {
             });
             return;
         }
-        //Muestro el modal
         document.getElementById('modal-estado').classList.remove('oculto');
-        //guardo el id de los pedidos seleccionados en un array
         const seleccionados = Array.from(checkboxes).map(cb => parseInt(cb.dataset.id));
-        //guardo los pedidos en el local storage
         localStorage.setItem('pedidosSeleccionados', JSON.stringify(seleccionados));
     })
 
@@ -451,13 +452,11 @@ if (page === 'index') {
         pedidos.forEach(p => {
             if (seleccionados.includes(p.id)) {
                 p.estado = nuevoEstado;
-                //Si el conductor no finaliza el pedido se marca como entregado desde el sitema
                 if (nuevoEstado === "Entregado") {
                     if (!p.conductor) {
                         p.conductor = "SistemaEnviosUY";
                     }
                 }
-                //Si se cambia el estado a pendiente o cancelado, el conductor queda indefinido
                 if (nuevoEstado === "Pendiente" || nuevoEstado === "Cancelado") {
                     p.conductor = undefined;
                 }
@@ -478,26 +477,18 @@ if (page === 'index') {
 }
 
 //INGRESAR PEDIDOS POR FORMULARIO
-
 if (page === 'ingreso') {
-
-    //Obtengo el formulario de ingreso del pedido
     const formularioPedido = document.getElementById("form-ingreso-pedido");
 
     formularioPedido.addEventListener('submit', function(evento) {
         evento.preventDefault();
-
         const pedidos = obtenerPedidos();
-        //Datos ingresados en el formulario
         const datos = new FormData(formularioPedido);
         const negocios = obtenerNegocios();
         const clientes = obtenerClientes();
-        //Verifico si existe el negocio y/o el cliente
         let existe = negocios.some(n => normalizarTexto(datos.get('Negocio')) == normalizarTexto(n.nombre));
         let existeCliente = clientes.some(c => normalizarTexto(datos.get('Cliente')) == normalizarTexto(c.nombre));
-        //Si existe el negocio continuo con el ingreso del pedido
         if (existe) {
-            //Si el cliente no existe, lo ingreso al sistema automaticamente para no tener que ingresarlo de forma manual
             if (!existeCliente) {
                 const nuevoCliente = new Cliente(
                     datos.get('Cliente'),
@@ -519,7 +510,6 @@ if (page === 'ingreso') {
             )
             pedidos.push(nuevoPedido);
             guardarPedidos(pedidos);
-            //Se redirige al inicio al terminar de ingresar el pedido
             let timerInterval;
             Swal.fire({
                 icon: 'success',
@@ -542,7 +532,6 @@ if (page === 'ingreso') {
                     window.location.href = '../index.html';
                 }
             });
-        //Si no existe el negocio le doy la opcion de ingresarlo
         } else {
             Swal.fire({
                 icon: 'warning',
@@ -719,11 +708,9 @@ if (page === 'listado') {
     //FILTRO DE LISTADO DE PEDIDOS
     const formularioFiltroPedidos = document.getElementById('form-filtro-pedido');
 
-    //Actualizado el listado de pedidos, dados sus filtros
     function actualizarTablaPedidos(pedidosFiltrados) {
         const tabla = document.querySelector('#lista-pedidos tbody');
         tabla.innerHTML = '';
-        //Agrego los pedidos filtrados al listado
         pedidosFiltrados.forEach(p => {
             const fila = document.createElement('tr');
             fila.innerHTML = `
@@ -742,7 +729,6 @@ if (page === 'listado') {
     //FORMULARIO DEL FILTRO DE PEDIDOS
     formularioFiltroPedidos.addEventListener("submit" , function(e) {
         e.preventDefault();
-        //Recibo los datos de ese formulario
         const datos = new FormData(formularioFiltroPedidos);
         const id = datos.get('id');
         const negocio = datos.get('negocio');

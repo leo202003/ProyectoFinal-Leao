@@ -99,7 +99,7 @@ fetch(URL2)
         console.error('Error al cargar conductores:', error);
     }); 
 
-const URL3 = '../json/clientes.json'
+const URL3 = './json/clientes.json'
 
 fetch(URL3)
     .then((response) => response.json())

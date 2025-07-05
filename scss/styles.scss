@@ -15,7 +15,9 @@ $color-text: #ffffff;
 body {
     width: 100%;
     height: 100vh;
+    overflow-x: hidden;
     background-color: $color-bg;
+
     //NAVBAR
     nav {
         z-index: 200;
@@ -80,6 +82,7 @@ body {
         align-items: center;
         padding: 0.5rem;
         gap: 1rem;
+        overflow-x: auto;
         background-color: $color-dark-sidebar;
         .card {
             color: $color-text;
@@ -347,9 +350,131 @@ body {
             padding: 0.3rem;
         }
     } 
-}
 
+    @media (max-width: 768px) {
+        nav {
+            padding: 0.95rem 1rem;
+            flex-direction: column;
+            gap: 1rem;
+            .menu {
+                gap: 52px;
+                flex-direction: row;
+                font-size: 1.3rem;
+            }
+
+            .logo a {
+                font-size: 3.2rem;
+            }
+        }
+
+        .dashboard {
+            gap: 1rem;
     
+            .card {
+                min-width: auto;
+                width: 100%;
+                padding: 1rem;
+                font-size: 1rem;
+            }
+        }
 
+        main {
+            .acciones {
+                flex-direction: column;
+                gap: 1.5rem;
+                padding: 2rem;
+                .btn {
+                    width: 450px;
+                    font-size: 1rem;
+                    padding: 0.75rem;
+                }
+            }
+
+            table {
+                width: 95%;
+                max-width: 800px;
+                margin: 0 auto;
+                font-size: 0.85rem;
+                
+                th, td {
+                    padding: 0.5rem ;
+                }
+            }
+
+            .lista-envios {
+                padding: 0.5rem;
+                overflow-x: auto;
+            }
+        }
+
+        .listado, .ingreso {
+            padding: 1rem;
+
+            .selector {
+                flex-wrap: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 1.5rem;
+                .btn-tab {
+                    font-size: 1.3rem;
+                    padding: 0.4rem 0.8rem;
+                }
+            }
+
+            .contenido-tab {
+                .form-ingreso {
+                    label {
+                    font-size: 1.1rem;
+
+                        input, textarea {
+                            font-size: 1rem;
+                            padding: 0.5rem 0.8rem;
+                        }
+                    }
+
+                    button {
+                        width: 100%;
+                        max-width: 200px;
+                        padding: 0.75rem;
+                        font-size: 1.1rem;
+                    }
+                }
+
+                .form-filtro {
+                    padding: 0.5rem;
+                    max-width: 80%;
+                    label {
+                        font-size: 0.85rem;
+                        input {
+                            font-size: 0.9rem;
+                        }
+                    }
+
+                    button {
+                    grid-column: 1 / -1;
+                    justify-self: center;
+                    font-size: 1rem;
+                    padding: 0.5rem;
+                    }
+                }
+            }
+        }
+
+        .modal .modal-contenido {
+                width: 90%;
+                padding: 1.5rem 1rem;
+                    button {
+                        width: 100%;
+                        margin-top: 0.5rem;
+                    }
+        }
+
+        #select-conductor, #select-estado {
+            width: 100%;
+            max-width: none;
+        }
+    }
+
+}
 
 

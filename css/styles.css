@@ -10,6 +10,7 @@
 body {
   width: 100%;
   height: 100vh;
+  overflow-x: hidden;
   background-color: #F5F5F5;
 }
 body nav {
@@ -68,6 +69,7 @@ body .dashboard {
   align-items: center;
   padding: 0.5rem;
   gap: 1rem;
+  overflow-x: auto;
   background-color: #01579B;
 }
 body .dashboard .card {
@@ -302,6 +304,107 @@ body #select-conductor:focus, body #select-estado:focus {
 }
 body #select-conductor option, body #select-estado option {
   padding: 0.3rem;
+}
+@media (max-width: 768px) {
+  body nav {
+    padding: 0.95rem 1rem;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  body nav .menu {
+    gap: 52px;
+    flex-direction: row;
+    font-size: 1.3rem;
+  }
+  body nav .logo a {
+    font-size: 3.2rem;
+  }
+  body .dashboard {
+    gap: 1rem;
+  }
+  body .dashboard .card {
+    min-width: auto;
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+  }
+  body main .acciones {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 2rem;
+  }
+  body main .acciones .btn {
+    width: 450px;
+    font-size: 1rem;
+    padding: 0.75rem;
+  }
+  body main table {
+    width: 95%;
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 0.85rem;
+  }
+  body main table th, body main table td {
+    padding: 0.5rem;
+  }
+  body main .lista-envios {
+    padding: 0.5rem;
+    overflow-x: auto;
+  }
+  body .listado, body .ingreso {
+    padding: 1rem;
+  }
+  body .listado .selector, body .ingreso .selector {
+    flex-wrap: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  body .listado .selector .btn-tab, body .ingreso .selector .btn-tab {
+    font-size: 1.3rem;
+    padding: 0.4rem 0.8rem;
+  }
+  body .listado .contenido-tab .form-ingreso label, body .ingreso .contenido-tab .form-ingreso label {
+    font-size: 1.1rem;
+  }
+  body .listado .contenido-tab .form-ingreso label input, body .listado .contenido-tab .form-ingreso label textarea, body .ingreso .contenido-tab .form-ingreso label input, body .ingreso .contenido-tab .form-ingreso label textarea {
+    font-size: 1rem;
+    padding: 0.5rem 0.8rem;
+  }
+  body .listado .contenido-tab .form-ingreso button, body .ingreso .contenido-tab .form-ingreso button {
+    width: 100%;
+    max-width: 200px;
+    padding: 0.75rem;
+    font-size: 1.1rem;
+  }
+  body .listado .contenido-tab .form-filtro, body .ingreso .contenido-tab .form-filtro {
+    padding: 0.5rem;
+    max-width: 80%;
+  }
+  body .listado .contenido-tab .form-filtro label, body .ingreso .contenido-tab .form-filtro label {
+    font-size: 0.85rem;
+  }
+  body .listado .contenido-tab .form-filtro label input, body .ingreso .contenido-tab .form-filtro label input {
+    font-size: 0.9rem;
+  }
+  body .listado .contenido-tab .form-filtro button, body .ingreso .contenido-tab .form-filtro button {
+    grid-column: 1/-1;
+    justify-self: center;
+    font-size: 1rem;
+    padding: 0.5rem;
+  }
+  body .modal .modal-contenido {
+    width: 90%;
+    padding: 1.5rem 1rem;
+  }
+  body .modal .modal-contenido button {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+  body #select-conductor, body #select-estado {
+    width: 100%;
+    max-width: none;
+  }
 }
 
 /*# sourceMappingURL=styles.css.map */

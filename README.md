@@ -35,8 +35,8 @@ Este proyecto va de un simulador desarrollado en JavaScript como parte del curso
 - Se utilizan datos precargados y almacenamiento local (localStorage).
 
 ### 🙋 Autor
-Leonardo Leao
 
-📧 Email: leonardo.leao90@gmail.com
+**Leonardo Leao**
 
+📧 Email: leonardo.leaoiglesias@gmail.com
 🎓 Curso: JavaScript en Coderhouse

@@ -232,15 +232,6 @@ function generarNuevoId(arreglo) {
     return arreglo.length > 0 ? arreglo[arreglo.length - 1].id + 1 : 1;
 }
 
-//funcion de comparacion de strings
-function normalizarTexto(texto) {
-    return texto
-    .toLowerCase()              
-    .replace(/\s+/g, '')        
-    .normalize('NFD')           
-    .replace(/[\u0300-\u036f]/g, ''); 
-}
-
 //INDEX
 if (page === 'index') {
 
@@ -324,7 +315,7 @@ if (page === 'index') {
         if (checkboxes.length === 0) {
             Swal.fire({
                 icon: 'warning',
-                title: 'Atención',
+                title: 'Atencion',
                 text: 'Selecciona al menos un pedido.',
                 confirmButtonText: 'OK',
                 confirmButtonColor: '#f5a623' 
@@ -343,7 +334,7 @@ if (page === 'index') {
         if (!conductorSeleccionado) {
             Swal.fire({
                 icon: 'warning',
-                title: 'Atención',
+                title: 'Atencion',
                 text: 'Selecciona al menos un Conductor.',
                 confirmButtonText: 'OK',
                 confirmButtonColor: '#f5a623' 
@@ -417,7 +408,7 @@ if (page === 'index') {
         if (checkboxes.length === 0) {
             Swal.fire({
                 icon: 'warning',
-                title: 'Atención',
+                title: 'Atencion',
                 text: 'Selecciona al menos un pedido.',
                 confirmButtonText: 'OK',
                 confirmButtonColor: '#f5a623' 

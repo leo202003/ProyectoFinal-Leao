@@ -39,4 +39,5 @@ Este proyecto va de un simulador desarrollado en JavaScript como parte del curso
 **Leonardo Leao**
 
 📧 Email: leonardo.leaoiglesias@gmail.com
+
 🎓 Curso: JavaScript en Coderhouse

@@ -15,7 +15,7 @@ tabs.forEach(btn => {
 
 //API RANDOM USER
 const URL = 'https://randomuser.me/api/?results=10&nat=uy,ar,mx,cl,co,es,br,pe';
-const BASE_URL = 'https://leo202003.github.io/ProyectoJavaScriptCoder/json/';
+const BASE_URL = 'https://leo202003.github.io/ProyectoFinal-Leao/json/';
 
 const URL1 = BASE_URL + 'negocios.json';
 const URL2 = BASE_URL + 'conductores.json';
